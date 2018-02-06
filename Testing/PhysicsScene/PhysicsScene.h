@@ -1,6 +1,9 @@
 #pragma once
 #include "PhysicsObject.h"
 #include <vector>
+#include "RigidBody.h"
+#include <iostream>
+using namespace std;
 class PhysicsScene
 {
 public:
@@ -11,6 +14,7 @@ public:
 	void removeActor(PhysicsObject* actor);
 	void update(float dt);
 	void updateGizmos();
+	void debugScene();
 
 	void setGravity(const glm::vec2 gravity) { m_gravity = gravity; }
 	glm::vec2 getGravity() const { return m_gravity; }

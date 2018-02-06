@@ -2,6 +2,7 @@
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
+#include "Sphere.h"
 
 PhysicsSceneApp::PhysicsSceneApp() {
 
@@ -23,7 +24,21 @@ bool PhysicsSceneApp::startup() {
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
 
 	m_physicsScene = new PhysicsScene();
+	m_physicsScene->setGravity(glm::vec2(0, 0));
 	m_physicsScene->setTimeStep(0.01f);
+
+	Sphere* ball = new Sphere(glm::vec2(-20, 0), glm::vec2(0, 0), 4.0f, 4, glm::vec4(1, 0, 0, 1));
+	
+	m_physicsScene->addActor(ball);
+	
+	Sphere* ball2 = new Sphere(glm::vec2(10, 0), glm::vec2(0, 0), 4.0f, 4, glm::vec4(0, 1, 0, 1));
+
+	m_physicsScene->addActor(ball2);
+	
+	//ball->applyForceToActor(ball2, glm::vec2(5, 0));
+
+	ball->applyForce(glm::vec2(15, 0));
+	ball2->applyForce(glm::vec2(-15, 0));
 
 	return true;
 }
@@ -44,7 +59,6 @@ void PhysicsSceneApp::update(float deltaTime) {
 
 	m_physicsScene->update(deltaTime);
 	m_physicsScene->updateGizmos();
-
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
@@ -61,7 +75,8 @@ void PhysicsSceneApp::draw() {
 	// draw your stuff here!
 	static float aspectRatio = 16 / 9.f;
 
-	aie::Gizmos::draw2D(glm::ortho<float>(-100, 100, -100 / aspectRatio, 100 / aspectRatio, -1.0f, 1.0f);
+	aie::Gizmos::draw2D(glm::ortho<float>(-100, 100, -100 / aspectRatio, 100 / aspectRatio, -1.0f, 1.0f));
+
 
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
