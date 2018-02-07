@@ -111,3 +111,48 @@ void PhysicsScene::debugScene()
 
 	}
 }
+
+//function pointer array for the collisions
+typedef bool(*fn)(PhysicsObject*, PhysicsObject*);
+
+static fn collisionFunctionArray[] =
+{
+PhysicsScene::plane2Plane,
+PhysicsScene::plane2Sphere,
+PhysicsScene::sphere2Plane,
+PhysicsScene::sphere2Sphere
+};
+
+void PhysicsScene::checkForCollision()
+{
+	int actorCount = m_actors.size();
+
+	//need to check for collisions against all objects except this one.
+	for (int outer = 0; outer < actorCount - 1; outer++)
+	{
+		for (int inner = outer + 1; inner < actorCount; inner++)
+		{
+			PhysicsObject* object1 = m_actors[outer];
+			PhysicsObject* object2 = m_actors[inner];
+
+			int shapeId1 = object1->getShapeId();
+			int shapeId2 = object2->getShapeId();
+
+			// using function pointers
+			int functionIdx = ( shapeId1 * SHAPE_COUNT ) + shapeId2;
+			fn collisionFunctionPtr = collisionFunctionArray[functionIdx];
+			if (collisionFunctionPtr != nullptr)
+			{
+				//did a collision occur?
+				collisionFunctionPtr(object1, object2);
+			}
+
+		}
+
+	}
+}
+
+bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
+{
+	Sphere* sphere1 = dynamic_cast<Sphere*>(obj1);
+}

@@ -9,6 +9,12 @@ Sphere::Sphere(glm::vec2 position, glm::vec2 velocity, float mass, float radius,
 	m_colour = colour;
 }
 
+Sphere::Sphere(glm::vec2 position, float incilnation, float speed, float mass, float radius, glm::vec4 colour) : RigidBody(SPHERE, position, incilnation, 0, mass)
+{
+}
+
+
+
 Sphere::~Sphere()
 {
 }

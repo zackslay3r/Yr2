@@ -6,7 +6,8 @@
 enum ShapeType {
 	PLANE = 0,
 	SPHERE,
-	BOX
+	BOX, 
+	SHAPE_COUNT
 
 
 };
@@ -24,6 +25,7 @@ public:
 	virtual void debug() = 0;
 	virtual void makeGizmo() = 0;
 	virtual void resetPosition() {};
+	ShapeType getShapeId() { return m_shapeID; }
 
 protected:
 	ShapeType m_shapeID;
