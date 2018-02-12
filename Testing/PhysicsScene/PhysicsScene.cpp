@@ -192,7 +192,7 @@ bool PhysicsScene::sphere2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 
 		if (intersection > 0)
 		{
-			sphere->setVelocity(glm::vec2(0,0));
+			plane->resolveCollision(dynamic_cast<RigidBody*>(sphere));
 			return true;
 		}
 	}

@@ -19,10 +19,19 @@ public:
 	void setVelocity(glm::vec2 velocity);
 	void resolveCollision(RigidBody* actor2);
 	float getMass() { return m_mass; }
+	void setLinearDrag(float value);
+	void setAngularDrag(float value);
+	void setAngularVelocity(float value);
+	float getLinearDrag() { return m_linearDrag; }
+	float getAngularDrag() { return m_angularDrag; }
+	float getAngularVelocity() { return m_angularVelocity; }
 
 protected:
 	glm::vec2 m_position;
 	glm::vec2 m_velocity;
+	float m_linearDrag = 0.3f;
+	float m_angularDrag = 0.3f;
+	float m_angularVelocity;
 	float m_mass;
 	float m_rotation; // 2D so we only need a signle float to represent our rotation.
 };

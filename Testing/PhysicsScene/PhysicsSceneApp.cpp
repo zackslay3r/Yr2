@@ -24,7 +24,7 @@ bool PhysicsSceneApp::startup() {
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
 
 	m_physicsScene = new PhysicsScene();
-	m_physicsScene->setGravity(glm::vec2(0, -0));
+	m_physicsScene->setGravity(glm::vec2(0, -10));
 	m_physicsScene->setTimeStep(0.01f);
 
 
@@ -35,21 +35,21 @@ bool PhysicsSceneApp::startup() {
 
 	//m_physicsScene->addActor(new Sphere(startPos,))
 
-	//Sphere* ball = new Sphere(glm::vec2(-20, 60), glm::vec2(0, 0), 4.0f, 4, glm::vec4(1, 0, 0, 1));
-	//
-	//m_physicsScene->addActor(ball);
+	Sphere* ball = new Sphere(glm::vec2(-20, 30), glm::vec2(0, 0), 4.0f, 4, glm::vec4(1, 0, 0, 1));
 	
-	Sphere* ball2 = new Sphere(glm::vec2(20, 0), glm::vec2(0, 0), 4.0f, 4, glm::vec4(0, 1, 0, 1));
+	m_physicsScene->addActor(ball);
+	
+	Sphere* ball2 = new Sphere(glm::vec2(20, 30), glm::vec2(0, 0), 4.0f, 4, glm::vec4(0, 1, 0, 1));
 
 	m_physicsScene->addActor(ball2);
 
-	Plane* plane1 = new Plane(glm::vec2(1, 1), -40);
+	Plane* plane1 = new Plane(glm::vec2(0, 1), 0);
 
 	m_physicsScene->addActor(plane1);
 	
-	//ball->applyForceToActor(ball2, glm::vec2(5, 0));
+	ball->applyForceToActor(ball2, glm::vec2(5, 0));
 
-	//ball->applyForce(glm::vec2(30, 5));
+	ball->applyForce(glm::vec2(30, 0));
 	ball2->applyForce(glm::vec2(-60, 0));
 	
 	//setupConinuousDemo(glm::vec2(-40,0),45,40,10);
