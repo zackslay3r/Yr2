@@ -2,10 +2,19 @@
 
 
 
-Plane::Plane() : PhysicsObject(ShapeType::PLANE)
+Plane::Plane() : PhysicsObject(m_shapeID = ShapeType::PLANE)
 {
 	m_distanceToOrigin = 0;
 	m_normal = glm::vec2(0, 1);
+
+}
+
+Plane::Plane(glm::vec2 normal, float distance)
+{
+	// the vector for the normal of a plane must be a normalized vector.
+	m_normal = glm::normalize(normal);
+	m_distanceToOrigin = distance;
+	m_shapeID = ShapeType::PLANE;
 }
 
 
@@ -19,7 +28,7 @@ void Plane::fixedUpdate(glm::vec2 gravity, float timeStep)
 
 void Plane::makeGizmo()
 {
-	float lineSegmentLength = 300.0f;
+	float lineSegmentLength = 1000;
 	glm::vec2 centerPoint = m_normal * m_distanceToOrigin;
 	glm::vec2 parallel(m_normal.y, -m_normal.x);
 	glm::vec4 colour(1, 1, 1, 1);

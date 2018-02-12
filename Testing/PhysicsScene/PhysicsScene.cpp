@@ -179,7 +179,7 @@ bool PhysicsScene::sphere2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 	if (sphere != nullptr && plane != nullptr)
 	{
 		glm::vec2 collisionNormal = plane->getNormal();
-		float sphereToPlane = glm::dot(sphere->getPosition(), plane->getNormal() - plane->getDistance());
+		float sphereToPlane = glm::dot(sphere->getPosition(), plane->getNormal()) - plane->getDistance();
 
 		// if we are behind the plane flip the normal
 		if(sphereToPlane < 0) 
