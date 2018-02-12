@@ -16,7 +16,7 @@ public:
 	virtual void draw();
 
 
-	void setupConinuousDemo(glm::vec2 startPos, float inclination, float speed, float gravity);
+	//void setupConinuousDemo(glm::vec2 startPos, float inclination, float speed, float gravity);
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;
