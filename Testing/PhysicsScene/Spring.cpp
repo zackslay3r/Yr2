@@ -24,8 +24,9 @@ Spring::~Spring()
 
 void Spring::fixedUpdate(glm::vec2 gravity, float timeStep)
 {
-	glm::vec2 p2 = m_contact1;
-	glm::vec2 p1 = m_contact2;
+	glm::vec2 p1 = m_body1->getPosition() + m_contact1;
+	glm::vec2 p2 = m_body2->getPosition() + m_contact2;
+	
 	glm::vec2 dist = p2 - p1;
 
 	float length = sqrtf(dist.x*dist.x + dist.y*dist.y);
@@ -41,7 +42,7 @@ void Spring::fixedUpdate(glm::vec2 gravity, float timeStep)
 
 void Spring::makeGizmo()
 {
-	aie::Gizmos::add2DLine(m_contact1, m_contact2, glm::vec4(1, 1, 1, 1));
+	aie::Gizmos::add2DLine(m_body1->getPosition() + m_contact1, m_body2->getPosition() + m_contact2, glm::vec4(1, 1, 1, 1));
 }
 
 void Spring::debug()

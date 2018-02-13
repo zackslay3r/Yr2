@@ -46,8 +46,7 @@ bool PhysicsSceneApp::startup() {
 	//Sphere* springBall2 = new Sphere(glm::vec2(35, 50), glm::vec2(0, 0), 1.3f, 5, glm::vec4(1, 1, 1, 1));
 	//m_physicsScene->addActor(springBall2);
 	//
-	//Plane* plane1 = new Plane(glm::vec2(0, 1), 0);
-	//m_physicsScene->addActor(plane1);
+
 
 	//Sphere* staticBall = new Sphere(glm::vec2(0, 30), glm::vec2(0, 0), 1.3f, 5, glm::vec4(1, 1, 1, 1));
 	//staticBall->setElasticity(0.9f);
@@ -92,10 +91,11 @@ bool PhysicsSceneApp::startup() {
 		ball2 = new Sphere(glm::vec2(startX + i * 6.0f, 40), glm::vec2(0, 0), mass, ballRadius, glm::vec4(1, 1, 1, 1));
 		ball2->setElasticity(0.9f);
 		m_physicsScene->addActor(ball2);
-		m_physicsScene->addActor(new Spring(ball1, ball2, 5, 10, .1f,ball1->getPosition(),ball2->getPosition()));
+		m_physicsScene->addActor(new Spring(ball1, ball2, 5, 10, .1f));
 		ball1 = ball2;
 	}
-
+	Plane* plane1 = new Plane(glm::vec2(0, 1), 0);
+	m_physicsScene->addActor(plane1);
 	return true;
 }
 

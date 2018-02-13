@@ -45,5 +45,6 @@ protected:
 	float m_rotation; // 2D so we only need a signle float to represent our rotation.
 	float m_elasticity;
 	bool m_isKinematic;
+
 };
 
