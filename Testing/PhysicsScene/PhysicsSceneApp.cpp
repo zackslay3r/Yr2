@@ -36,23 +36,23 @@ bool PhysicsSceneApp::startup() {
 
 	//m_physicsScene->addActor(new Sphere(startPos,))
 
-	//Sphere* ball = new Sphere(glm::vec2(20, 30), glm::vec2(0, 0), 1.0f, 5, glm::vec4(1, 0, 0, 1));
-	//
-	//m_physicsScene->addActor(ball);
-	//
-	//Sphere* ball2 = new Sphere(glm::vec2(-20, 30), glm::vec2(0, 0), 1.0f, 5, glm::vec4(0, 1, 0, 1));
-	//m_physicsScene->addActor(ball2);
-	//
-	//Sphere* springBall2 = new Sphere(glm::vec2(35, 50), glm::vec2(0, 0), 1.3f, 5, glm::vec4(1, 1, 1, 1));
-	//m_physicsScene->addActor(springBall2);
-	//
+	Sphere* ball = new Sphere(glm::vec2(20, 30), glm::vec2(0, 0), 1.0f, 5, glm::vec4(1, 0, 0, 1));
+	
+	m_physicsScene->addActor(ball);
+	
+	Sphere* ballTwo = new Sphere(glm::vec2(-20, 30), glm::vec2(0, 0), 1.0f, 5, glm::vec4(0, 1, 0, 1));
+	m_physicsScene->addActor(ballTwo);
+	
+	Sphere* springBall2 = new Sphere(glm::vec2(35, 50), glm::vec2(0, 0), 1.3f, 5, glm::vec4(1, 1, 1, 1));
+	m_physicsScene->addActor(springBall2);
+	
 
 
-	//Sphere* staticBall = new Sphere(glm::vec2(0, 30), glm::vec2(0, 0), 1.3f, 5, glm::vec4(1, 1, 1, 1));
-	//staticBall->setElasticity(0.9f);
-	//staticBall->setKinematic(true);
-	//m_physicsScene->addActor(staticBall);
-	//
+	Sphere* staticBall = new Sphere(glm::vec2(0, 30), glm::vec2(0, 0), 1.3f, 5, glm::vec4(1, 1, 1, 1));
+	staticBall->setElasticity(0.9f);
+	staticBall->setKinematic(true);
+	m_physicsScene->addActor(staticBall);
+	
 
 	//Sphere* staticBall2 = new Sphere(glm::vec2(30, 0), glm::vec2(0, 0), 1.3f, 5, glm::vec4(1, 1, 1, 1));
 	//staticBall2->setElasticity(0.9f);
@@ -60,19 +60,36 @@ bool PhysicsSceneApp::startup() {
 	//m_physicsScene->addActor(staticBall2);
 
 
+	Sphere* softBody1 = new Sphere(glm::vec2(9, 11), glm::vec2(0, 0), 1.0f, 1, glm::vec4(1, 0, 0, 1));
+	m_physicsScene->addActor(softBody1);
 
-	//Sphere* springBall = new Sphere(glm::vec2(25, 50), glm::vec2(0, 0), 1.3f, 5, glm::vec4(1, 1, 1, 1));
-	//springBall->setElasticity(0.9f);
-	//springBall->setKinematic(true);
-	//m_physicsScene->addActor(springBall);
+	Sphere* softBody2 = new Sphere(glm::vec2(13, 11), glm::vec2(0, 0), 1.0f, 1, glm::vec4(0, 1, 0, 1));
+	m_physicsScene->addActor(softBody2);
+
+	Sphere* softBody3 = new Sphere(glm::vec2(13, 7), glm::vec2(0, 0), 1.0f, 1, glm::vec4(0, 0, 1, 1));
+	m_physicsScene->addActor(softBody3);
+	
+	Sphere* softBody4 = new Sphere(glm::vec2(9, 7), glm::vec2(0, 0), 1.0f, 1, glm::vec4(1, 1, 1, 1));
+	m_physicsScene->addActor(softBody4);
 
 
 
+	m_physicsScene->addActor(new Spring(softBody1, softBody2, 4, 8, .1f));
+	m_physicsScene->addActor(new Spring(softBody2, softBody3, 4, 8, .1f));
+	m_physicsScene->addActor(new Spring(softBody3, softBody4, 4, 8, .1f));
+	m_physicsScene->addActor(new Spring(softBody4, softBody1, 4, 8, .1f));
+	m_physicsScene->addActor(new Spring(softBody2, softBody4, 5.65, 10, .1f));
+	m_physicsScene->addActor(new Spring(softBody1, softBody3, 5.65, 10, .1f));
 
-	//ball->applyForce(glm::vec2(-40, 0),glm::vec2(0,0));
-	//ball2->applyForce(glm::vec2(40, 0), glm::vec2(0,0));
-	//
-	//setupConinuousDemo(glm::vec2(-40,0),45,40,10);
+	Sphere* staticBall2 = new Sphere(glm::vec2(10, -20), glm::vec2(0, 0), 1.3f, 5, glm::vec4(1, 1, 1, 1));
+	staticBall2->setElasticity(0.9f);
+	staticBall2->setKinematic(true);
+	m_physicsScene->addActor(staticBall2);
+	
+
+	ball->applyForce(glm::vec2(-40, 0),glm::vec2(0,0));
+	ballTwo->applyForce(glm::vec2(40, 0), glm::vec2(0,0));
+	
 
 	int startX = -50;
 	Sphere* ball1; 
@@ -94,7 +111,7 @@ bool PhysicsSceneApp::startup() {
 		m_physicsScene->addActor(new Spring(ball1, ball2, 5, 10, .1f));
 		ball1 = ball2;
 	}
-	Plane* plane1 = new Plane(glm::vec2(0, 1), 0);
+	Plane* plane1 = new Plane(glm::vec2(0, 1), -20);
 	m_physicsScene->addActor(plane1);
 	return true;
 }
