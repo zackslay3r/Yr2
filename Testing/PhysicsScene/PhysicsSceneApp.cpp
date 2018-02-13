@@ -35,11 +35,11 @@ bool PhysicsSceneApp::startup() {
 
 	//m_physicsScene->addActor(new Sphere(startPos,))
 
-	Sphere* ball = new Sphere(glm::vec2(-20, 30), glm::vec2(0, 0), 4.0f, 4, glm::vec4(1, 0, 0, 1));
+	Sphere* ball = new Sphere(glm::vec2(-20, 30), glm::vec2(0, 0), 3.0f, 4, glm::vec4(1, 0, 0, 1));
 	
 	m_physicsScene->addActor(ball);
 	
-	Sphere* ball2 = new Sphere(glm::vec2(20, 30), glm::vec2(0, 0), 4.0f, 4, glm::vec4(0, 1, 0, 1));
+	Sphere* ball2 = new Sphere(glm::vec2(20, 30), glm::vec2(0, 0), 1.3f, 5, glm::vec4(0, 1, 0, 1));
 
 	m_physicsScene->addActor(ball2);
 
@@ -47,10 +47,10 @@ bool PhysicsSceneApp::startup() {
 
 	m_physicsScene->addActor(plane1);
 	
-	ball->applyForceToActor(ball2, glm::vec2(5, 0));
+	//ball->applyForceToActor(ball2, glm::vec2(5, 0));
 
-	ball->applyForce(glm::vec2(30, 0));
-	ball2->applyForce(glm::vec2(-60, 0));
+	ball->applyForce(glm::vec2(10, 0),ball->getPosition());
+	ball2->applyForce(glm::vec2(-10, 0), ball2->getPosition());
 	
 	//setupConinuousDemo(glm::vec2(-40,0),45,40,10);
 

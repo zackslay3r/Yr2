@@ -87,7 +87,7 @@ void PhysicsScene::update(float dt)
 		{
 			RigidBody* pRigid = dynamic_cast<RigidBody*>(pActor);
 
-			pRigid->applyForce(glm::vec2(2, 0));
+			pRigid->applyForce(glm::vec2(2, 0),pRigid->getPosition());
 		}
 	}
 }
@@ -179,6 +179,8 @@ bool PhysicsScene::sphere2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 	if (sphere != nullptr && plane != nullptr)
 	{
 		glm::vec2 collisionNormal = plane->getNormal();
+		// this gets the contact point of where the two objects hit
+		glm::vec2 contact = sphere->getPosition() + (collisionNormal * -sphere->getRadius());
 		float sphereToPlane = glm::dot(sphere->getPosition(), plane->getNormal()) - plane->getDistance();
 
 		// if we are behind the plane flip the normal
@@ -192,7 +194,7 @@ bool PhysicsScene::sphere2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 
 		if (intersection > 0)
 		{
-			plane->resolveCollision(dynamic_cast<RigidBody*>(sphere));
+			plane->resolveCollision(dynamic_cast<RigidBody*>(sphere),contact);
 			return true;
 		}
 	}
@@ -213,7 +215,7 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 		if (distanceAway < sphere1->getRadius() + sphere2->getRadius())
 		{
 			
-			sphere1->resolveCollision(sphere2);
+			sphere1->resolveCollision(sphere2,0.5f*(sphere1->getPosition() * sphere2->getPosition()));
 			return true;
 		}
 		else
