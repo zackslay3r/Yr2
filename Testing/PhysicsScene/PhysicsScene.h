@@ -7,6 +7,7 @@
 #include "Plane.h"
 
 using namespace std;
+
 class PhysicsScene
 {
 public:
@@ -31,7 +32,7 @@ public:
 	static bool plane2Sphere(PhysicsObject*, PhysicsObject*);
 	static bool sphere2Plane(PhysicsObject*, PhysicsObject*);
 	static bool sphere2Sphere(PhysicsObject*, PhysicsObject*);
-
+	
 
 protected:
 	glm::vec2 m_gravity;

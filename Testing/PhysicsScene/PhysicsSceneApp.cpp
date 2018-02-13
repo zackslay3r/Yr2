@@ -3,6 +3,7 @@
 #include "Font.h"
 #include "Input.h"
 #include "Sphere.h"
+#include "Spring.h"
 
 PhysicsSceneApp::PhysicsSceneApp() {
 
@@ -28,31 +29,72 @@ bool PhysicsSceneApp::startup() {
 	m_physicsScene->setTimeStep(0.01f);
 
 
-	float radius = 1.0f;
-	float speed = 30;
-	glm::vec2 startPos(-40, 0);
-	float inclination = 3.14159265358979323846 / 4.0f;
+	//float radius = 1.0f;
+	//float speed = 30;
+	//glm::vec2 startPos(-40, 0);
+	//float inclination = 3.14159265358979323846 / 4.0f;
 
 	//m_physicsScene->addActor(new Sphere(startPos,))
 
-	Sphere* ball = new Sphere(glm::vec2(-20, 30), glm::vec2(0, 0), 3.0f, 4, glm::vec4(1, 0, 0, 1));
-	
-	m_physicsScene->addActor(ball);
-	
-	Sphere* ball2 = new Sphere(glm::vec2(20, 30), glm::vec2(0, 0), 1.3f, 5, glm::vec4(0, 1, 0, 1));
+	//Sphere* ball = new Sphere(glm::vec2(20, 30), glm::vec2(0, 0), 1.0f, 5, glm::vec4(1, 0, 0, 1));
+	//
+	//m_physicsScene->addActor(ball);
+	//
+	//Sphere* ball2 = new Sphere(glm::vec2(-20, 30), glm::vec2(0, 0), 1.0f, 5, glm::vec4(0, 1, 0, 1));
+	//m_physicsScene->addActor(ball2);
+	//
+	//Sphere* springBall2 = new Sphere(glm::vec2(35, 50), glm::vec2(0, 0), 1.3f, 5, glm::vec4(1, 1, 1, 1));
+	//m_physicsScene->addActor(springBall2);
+	//
+	//Plane* plane1 = new Plane(glm::vec2(0, 1), 0);
+	//m_physicsScene->addActor(plane1);
 
-	m_physicsScene->addActor(ball2);
+	//Sphere* staticBall = new Sphere(glm::vec2(0, 30), glm::vec2(0, 0), 1.3f, 5, glm::vec4(1, 1, 1, 1));
+	//staticBall->setElasticity(0.9f);
+	//staticBall->setKinematic(true);
+	//m_physicsScene->addActor(staticBall);
+	//
 
-	Plane* plane1 = new Plane(glm::vec2(0, 1), 0);
+	//Sphere* staticBall2 = new Sphere(glm::vec2(30, 0), glm::vec2(0, 0), 1.3f, 5, glm::vec4(1, 1, 1, 1));
+	//staticBall2->setElasticity(0.9f);
+	//staticBall2->setKinematic(true);
+	//m_physicsScene->addActor(staticBall2);
 
-	m_physicsScene->addActor(plane1);
-	
-	//ball->applyForceToActor(ball2, glm::vec2(5, 0));
 
-	ball->applyForce(glm::vec2(10, 0),ball->getPosition());
-	ball2->applyForce(glm::vec2(-10, 0), ball2->getPosition());
-	
+
+	//Sphere* springBall = new Sphere(glm::vec2(25, 50), glm::vec2(0, 0), 1.3f, 5, glm::vec4(1, 1, 1, 1));
+	//springBall->setElasticity(0.9f);
+	//springBall->setKinematic(true);
+	//m_physicsScene->addActor(springBall);
+
+
+
+
+	//ball->applyForce(glm::vec2(-40, 0),glm::vec2(0,0));
+	//ball2->applyForce(glm::vec2(40, 0), glm::vec2(0,0));
+	//
 	//setupConinuousDemo(glm::vec2(-40,0),45,40,10);
+
+	int startX = -50;
+	Sphere* ball1; 
+	Sphere* ball2;
+	float ballRadius = 2;
+	float mass = 1;
+	ball1 = new Sphere(glm::vec2(startX, 40), glm::vec2(0, 0), mass, ballRadius, glm::vec4(1, 1, 1, 1));
+	ball1->setElasticity(0.9f);
+	ball1->setKinematic(true);
+	m_physicsScene->addActor(ball1);
+
+	int numberOfBalls = 10;
+
+	for (int i = 1; i < numberOfBalls; i++)
+	{
+		ball2 = new Sphere(glm::vec2(startX + i * 6.0f, 40), glm::vec2(0, 0), mass, ballRadius, glm::vec4(1, 1, 1, 1));
+		ball2->setElasticity(0.9f);
+		m_physicsScene->addActor(ball2);
+		m_physicsScene->addActor(new Spring(ball1, ball2, 5, 10, .1f,ball1->getPosition(),ball2->getPosition()));
+		ball1 = ball2;
+	}
 
 	return true;
 }

@@ -20,15 +20,17 @@ public:
 	glm::vec2 getVelocity() { return m_velocity; }
 	void setVelocity(glm::vec2 velocity);
 	
-	float getMass() { return m_mass; }
+	float getMass() { return (m_isKinematic) ? INT_MAX : m_mass; }
 	void setLinearDrag(float value);
 	void setAngularDrag(float value);
 	void setAngularVelocity(float value);
 	void setElasticity(float elasticity);
+	void setKinematic(bool state) { m_isKinematic = state; }
 	float getLinearDrag() { return m_linearDrag; }
 	float getAngularDrag() { return m_angularDrag; }
 	float getAngularVelocity() { return m_angularVelocity; }
 	float getElasticity() { return m_elasticity; }
+	bool isKinematic() { return m_isKinematic; }
 
 protected:
 	glm::vec2 m_position;
@@ -42,5 +44,6 @@ protected:
 	float m_mass;
 	float m_rotation; // 2D so we only need a signle float to represent our rotation.
 	float m_elasticity;
+	bool m_isKinematic;
 };
 

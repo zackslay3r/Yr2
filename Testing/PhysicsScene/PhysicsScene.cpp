@@ -80,16 +80,7 @@ void PhysicsScene::update(float dt)
 
 	}
 	
-	if (input->isKeyDown(aie::INPUT_KEY_F))
-	{
 
-		for (auto pActor : m_actors)
-		{
-			RigidBody* pRigid = dynamic_cast<RigidBody*>(pActor);
-
-			pRigid->applyForce(glm::vec2(2, 0),pRigid->getPosition());
-		}
-	}
 }
 
 void PhysicsScene::updateGizmos()
@@ -139,6 +130,11 @@ void PhysicsScene::checkForCollision()
 			int shapeId1 = object1->getShapeId();
 			int shapeId2 = object2->getShapeId();
 
+
+			if (shapeId1 < 0 || shapeId2 < 0)
+			{
+				continue;
+			}
 			// using function pointers
 			int functionIdx = ( shapeId1 * SHAPE_COUNT - 1 ) + shapeId2;
 			fn collisionFunctionPtr = collisionFunctionArray[functionIdx];
@@ -215,7 +211,10 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 		if (distanceAway < sphere1->getRadius() + sphere2->getRadius())
 		{
 			
-			sphere1->resolveCollision(sphere2,0.5f*(sphere1->getPosition() * sphere2->getPosition()));
+			glm::vec2 touchpos;
+			touchpos = (glm::normalize(sphere2->getPosition() - sphere1->getPosition()) * sphere1->getRadius());
+			sphere1->resolveCollision(sphere2,touchpos);
+			
 			return true;
 		}
 		else
