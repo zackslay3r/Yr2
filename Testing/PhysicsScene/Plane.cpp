@@ -29,7 +29,7 @@ void Plane::fixedUpdate(glm::vec2 gravity, float timeStep)
 
 void Plane::makeGizmo()
 {
-	float lineSegmentLength = 1000;
+	float lineSegmentLength = 10000;
 	glm::vec2 centerPoint = m_normal * m_distanceToOrigin;
 	glm::vec2 parallel(m_normal.y, -m_normal.x);
 	glm::vec4 colour(1, 1, 1, 1);
