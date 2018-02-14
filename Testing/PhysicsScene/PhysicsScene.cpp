@@ -136,7 +136,7 @@ void PhysicsScene::checkForCollision()
 				continue;
 			}
 			// using function pointers
-			int functionIdx = ( shapeId1 * SHAPE_COUNT - 1 ) + shapeId2;
+			int functionIdx = ( shapeId1 * SHAPE_COUNT) + shapeId2;
 			fn collisionFunctionPtr = collisionFunctionArray[functionIdx];
 			if (collisionFunctionPtr != nullptr)
 			{

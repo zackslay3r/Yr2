@@ -5,14 +5,14 @@
 // this enum will be used for shapeType
 enum ShapeType {
 	JOINT = -1,
-	PLANE = 0,
+	PLANE,
 	SPHERE,
 	BOX
 
 
 };
 
-const int SHAPE_COUNT = 3;
+const int SHAPE_COUNT = 2;
 
 
 class PhysicsObject

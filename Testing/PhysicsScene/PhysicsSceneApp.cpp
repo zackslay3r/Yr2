@@ -35,6 +35,7 @@ bool PhysicsSceneApp::startup() {
 	//float inclination = 3.14159265358979323846 / 4.0f;
 
 	//m_physicsScene->addActor(new Sphere(startPos,))
+	
 
 	Sphere* ball = new Sphere(glm::vec2(20, 30), glm::vec2(0, 0), 1.0f, 5, glm::vec4(1, 0, 0, 1));
 	
@@ -62,13 +63,10 @@ bool PhysicsSceneApp::startup() {
 
 	Sphere* softBody1 = new Sphere(glm::vec2(9, 11), glm::vec2(0, 0), 1.0f, 1, glm::vec4(1, 0, 0, 1));
 	m_physicsScene->addActor(softBody1);
-
 	Sphere* softBody2 = new Sphere(glm::vec2(13, 11), glm::vec2(0, 0), 1.0f, 1, glm::vec4(0, 1, 0, 1));
 	m_physicsScene->addActor(softBody2);
-
 	Sphere* softBody3 = new Sphere(glm::vec2(13, 7), glm::vec2(0, 0), 1.0f, 1, glm::vec4(0, 0, 1, 1));
 	m_physicsScene->addActor(softBody3);
-	
 	Sphere* softBody4 = new Sphere(glm::vec2(9, 7), glm::vec2(0, 0), 1.0f, 1, glm::vec4(1, 1, 1, 1));
 	m_physicsScene->addActor(softBody4);
 
@@ -111,8 +109,13 @@ bool PhysicsSceneApp::startup() {
 		m_physicsScene->addActor(new Spring(ball1, ball2, 5, 10, .1f));
 		ball1 = ball2;
 	}
+	
 	Plane* plane1 = new Plane(glm::vec2(0, 1), -20);
 	m_physicsScene->addActor(plane1);
+
+	Sphere* ball5 = new Sphere(glm::vec2(10, 20), glm::vec2(0, 0), 1.0f, 5, glm::vec4(1, 0, 0, 1));
+
+	m_physicsScene->addActor(ball5);
 	return true;
 }
 
@@ -135,6 +138,11 @@ void PhysicsSceneApp::update(float deltaTime) {
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
+
+	if (input->wasKeyPressed(aie::INPUT_KEY_0))
+	{
+		m_physicsScene->addActor(new Sphere(glm::vec2(0, 0), glm::vec2(0, 0), 1, 1, glm::vec4(1, 1, 1, 1)));
+	}
 }
 
 void PhysicsSceneApp::draw() {
