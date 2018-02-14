@@ -138,10 +138,14 @@ void PhysicsSceneApp::update(float deltaTime) {
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
+	int screenWidth = getWindowWidth();
+	int screenHeight = getWindowHeight();
 
 	if (input->wasKeyPressed(aie::INPUT_KEY_0))
-	{
-		m_physicsScene->addActor(new Sphere(glm::vec2(0, 0), glm::vec2(0, 0), 1, 1, glm::vec4(1, 1, 1, 1)));
+	{	
+		int mouseX = input->getMouseX();
+		int mouseY = input->getMouseY();
+		m_physicsScene->addActor(new Sphere(glm::vec2((float)input->getMouseX() - (((float)screenWidth) * 0.5f),(float)input->getMouseY() - (((float)screenHeight) * 0.5f)), glm::vec2(0, 0), 1, 1, glm::vec4(1, 1, 1, 1)));
 	}
 }
 
