@@ -26,12 +26,13 @@ public:
 	void setAngularVelocity(float value);
 	void setElasticity(float elasticity);
 	void setKinematic(bool state) { m_isKinematic = state; }
+	void setPosition(glm::vec2 position);
 	float getLinearDrag() { return m_linearDrag; }
 	float getAngularDrag() { return m_angularDrag; }
 	float getAngularVelocity() { return m_angularVelocity; }
 	float getElasticity() { return m_elasticity; }
 	bool isKinematic() { return m_isKinematic; }
-
+	
 protected:
 	glm::vec2 m_position;
 	glm::vec2 m_velocity;

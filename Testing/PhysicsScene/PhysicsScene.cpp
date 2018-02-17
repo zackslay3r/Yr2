@@ -80,7 +80,7 @@ void PhysicsScene::update(float dt)
 
 	}
 	
-
+	
 }
 
 void PhysicsScene::updateGizmos()
@@ -191,6 +191,7 @@ bool PhysicsScene::sphere2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 		if (intersection > 0)
 		{
 			plane->resolveCollision(dynamic_cast<RigidBody*>(sphere),contact);
+			sphere->setPosition(glm::vec2(sphere->getPosition().x + (plane->getNormal() * intersection, sphere->getPosition().y + (plane->getNormal() * intersection))));
 			return true;
 		}
 	}

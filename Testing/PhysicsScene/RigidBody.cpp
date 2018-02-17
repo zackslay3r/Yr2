@@ -195,3 +195,9 @@ void RigidBody::setElasticity(float elasticity)
 {
 	m_elasticity = elasticity;
 }
+
+void RigidBody::setPosition(glm::vec2 position)
+{
+	m_position.x = position.x;
+	m_position.y = position.y;
+}

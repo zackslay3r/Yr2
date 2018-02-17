@@ -33,10 +33,11 @@ public:
 	static bool sphere2Plane(PhysicsObject*, PhysicsObject*);
 	static bool sphere2Sphere(PhysicsObject*, PhysicsObject*);
 	
-
+	// We are making the list o
+	std::vector<PhysicsObject*> m_actors;
 protected:
 	glm::vec2 m_gravity;
 	float m_timeStep;
-	std::vector<PhysicsObject*> m_actors;
+	
 };
 
