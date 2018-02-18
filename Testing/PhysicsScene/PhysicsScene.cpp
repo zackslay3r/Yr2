@@ -191,7 +191,7 @@ bool PhysicsScene::sphere2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 		if (intersection > 0)
 		{
 			plane->resolveCollision(dynamic_cast<RigidBody*>(sphere),contact);
-			sphere->setPosition(glm::vec2(sphere->getPosition().x + (plane->getNormal() * intersection, sphere->getPosition().y + (plane->getNormal() * intersection))));
+			sphere->setPosition(sphere->getPosition() + collisionNormal * intersection);
 			return true;
 		}
 	}
@@ -209,13 +209,31 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 	if (sphere1 != nullptr && sphere2 != nullptr)
 	{
 		float distanceAway = glm::distance(sphere1->getPosition(), sphere2->getPosition());
+		//glm::vec2 direction = glm::normalize(sphere2->getPosition() - sphere1->getPosition());
+		glm::vec2 direction = glm::normalize(sphere1->getPosition() - sphere2->getPosition());
 		if (distanceAway < sphere1->getRadius() + sphere2->getRadius())
 		{
 			
 			glm::vec2 touchpos;
 			touchpos = (glm::normalize(sphere2->getPosition() - sphere1->getPosition()) * sphere1->getRadius());
 			sphere1->resolveCollision(sphere2,touchpos);
-			
+			float radiusSum = sphere1->getRadius() + sphere2->getRadius();
+			if (sphere1->isKinematic())
+			{
+				sphere2->setPosition(sphere2->getPosition() - direction * (radiusSum - distanceAway));
+			}
+			// if both of the spheres can move...
+			if (!sphere1->isKinematic() && !sphere2->isKinematic())
+			{
+				// get the mass of both objects.
+				float combinedMass =  1 / sphere1->getMass() + 1 / sphere2->getMass();
+				// then get the ratio of how much each object weights.
+				float ratioA = (1 / sphere1->getMass()) / combinedMass;
+				float ratioB = (1 / sphere2->getMass()) / combinedMass;
+				// then set the positions based on this ratio * position vector
+				sphere1->setPosition(sphere1->getPosition() + (direction * ratioA));
+				sphere2->setPosition(sphere2->getPosition() + (direction * -ratioB));
+			}
 			return true;
 		}
 		else

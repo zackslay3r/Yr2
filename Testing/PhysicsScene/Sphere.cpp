@@ -7,7 +7,8 @@ Sphere::Sphere(glm::vec2 position, glm::vec2 velocity, float mass, float radius,
 {
 	m_radius = radius;
 	m_colour = colour;
-	m_moment = 0.5f * m_mass * m_radius * m_radius;
+	//m_moment = 0.5f * m_mass * m_radius * m_radius;
+	m_moment = 0.0f;
 	m_rotation = 0.0f;
 	m_angularVelocity = 0.0f;
 	m_shapeID = ShapeType::SPHERE;

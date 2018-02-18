@@ -74,12 +74,12 @@ bool PhysicsSceneApp::startup() {
 
 
 
-	m_physicsScene->addActor(new Spring(softBody1, softBody2, 30, 25, .1f));
-	m_physicsScene->addActor(new Spring(softBody2, softBody3, 30, 25, .1f));
-	m_physicsScene->addActor(new Spring(softBody3, softBody4, 30, 25, .1f));
-	m_physicsScene->addActor(new Spring(softBody4, softBody1, 30, 25, .1f));
-	m_physicsScene->addActor(new Spring(softBody2, softBody4, 37.74, 25, .1f));
-	m_physicsScene->addActor(new Spring(softBody1, softBody3, 37.74, 25, .1f));
+	m_physicsScene->addActor(new Spring(softBody1, softBody2, 30, 7, .1f));
+	m_physicsScene->addActor(new Spring(softBody2, softBody3, 30, 7, .1f));
+	m_physicsScene->addActor(new Spring(softBody3, softBody4, 30, 7, .1f));
+	m_physicsScene->addActor(new Spring(softBody4, softBody1, 30, 7, .1f));
+	m_physicsScene->addActor(new Spring(softBody2, softBody4, 37.74, 15, .1f));
+	m_physicsScene->addActor(new Spring(softBody1, softBody3, 37.74, 15, .1f));
 
 	Sphere* staticBall2 = new Sphere(glm::vec2(410, 300), glm::vec2(0, 0), 1.3f, 25, glm::vec4(1, 1, 1, 1));
 	staticBall2->setElasticity(0.9f);
@@ -183,7 +183,7 @@ void PhysicsSceneApp::update(float deltaTime) {
 		
 		mouseY /= 2;
 		mouseY *= 100;*/
-		m_physicsScene->addActor(new Sphere(glm::vec2((float)mouseX, (float)mouseY), glm::vec2(0, 0), 1, 1, glm::vec4(1, 1, 1, 1)));
+		m_physicsScene->addActor(new Sphere(glm::vec2((float)mouseX, (float)mouseY), glm::vec2(0, 0), 1, 5, glm::vec4(1, 1, 1, 1)));
 
 		//m_physicsScene->addActor(new Sphere(glm::vec2(((float)input->getMouseX() - (((float)screenWidth) * 0.5f) / 100),((float)input->getMouseY() - (((float)screenHeight) * 0.5f)) / 100), glm::vec2(0, 0), 1, 1, glm::vec4(1, 1, 1, 1)));
 	}
