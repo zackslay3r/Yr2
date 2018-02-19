@@ -112,7 +112,7 @@ bool PhysicsSceneApp::startup() {
 
 	// testing that mass is 4.8 times the spring coffectant?
 	// MakeSoftBody(rows,coloums,circleRadius,softbodymass,startingpos,spacing,springstrength)
-	MakeSoftBody(6, 22, 7, 3, glm::vec2(400, 600),16, 0.25);
+	MakeSoftBody(6, 22, 7, 3, glm::vec2(400, 600),16, 0.1);
 
 	Sphere* staticBall8 = new Sphere(glm::vec2(540, 200), glm::vec2(0, 0), 1.3f, 25, glm::vec4(1, 1, 1, 1));
 	staticBall8->setElasticity(0.9f);
