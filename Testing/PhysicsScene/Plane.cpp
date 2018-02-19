@@ -15,7 +15,6 @@ Plane::Plane(glm::vec2 normal, float distance)
 	m_normal = glm::normalize(normal);
 	m_distanceToOrigin = distance;
 	m_shapeID = ShapeType::PLANE;
-	
 }
 
 

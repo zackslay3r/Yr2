@@ -114,9 +114,9 @@ bool PhysicsSceneApp::startup() {
 
 
 	// MakeSoftBody(rows,coloums,circleRadius,softbodymass,startingpos,spacing,springstrength)
-	MakeSoftBody(5, 20, 5, 12.5, glm::vec2(300, 600), 12.5, 0.75, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
+	MakeSoftBody(10, 20, 5, 12.5, glm::vec2(300, 600), 12.5, 0.25, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
 
-	MakeSoftBody(5, 5, 10, 12.5, glm::vec2(300, 700), 25, 0.75, glm::vec4(1, 0, 0, 1), glm::vec4(1, 0, 0, 1));
+	MakeSoftBody(5, 5, 10, 12.5, glm::vec2(300, 800), 24, 0.25, glm::vec4(1, 0, 0, 1), glm::vec4(1, 0, 0, 1));
 
 	//MakeSoftBody(3, 3, 7, 3, glm::vec2(500, 700), 16, 0.4, glm::vec4(0, 0, 1, 1), glm::vec4(0, 0, 1, 1));
 
@@ -134,24 +134,23 @@ bool PhysicsSceneApp::startup() {
 
 	Sphere* ball1;
 	ball1 = new Sphere(glm::vec2(200, 400), glm::vec2(0, 0), 1, 15, glm::vec4(1, 1, 1, 1));
-	ball1->setElasticity(0.9f);
 	ball1->setKinematic(true);
 	m_physicsScene->addActor(ball1);
 
 	Sphere* ball2;
 	ball2 = new Sphere(glm::vec2(240, 400), glm::vec2(0, 0), 6, 15, glm::vec4(1, 1, 1, 1));
 	m_physicsScene->addActor(ball2);
-	m_physicsScene->addActor(new Spring(ball1, ball2, 40, 1, glm::vec4(1, 1, 1, 1)));
+	m_physicsScene->addActor(new Spring(ball1, ball2, 40, 0.5, glm::vec4(1, 1, 1, 1)));
 
 	Sphere* ball3;
 	ball3 = new Sphere(glm::vec2(280, 400), glm::vec2(0, 0), 6, 15, glm::vec4(1, 1, 1, 1));
 	m_physicsScene->addActor(ball3);
-	m_physicsScene->addActor(new Spring(ball2, ball3, 40, 1, glm::vec4(1, 1, 1, 1)));
+	m_physicsScene->addActor(new Spring(ball2, ball3, 40, 0.5, glm::vec4(1, 1, 1, 1)));
 
 	Sphere* ball4;
 	ball4 = new Sphere(glm::vec2(320, 400), glm::vec2(0, 0), 50, 15, glm::vec4(1, 1, 1, 1));
 	m_physicsScene->addActor(ball4);
-	m_physicsScene->addActor(new Spring(ball3, ball4, 40, 1, glm::vec4(1, 1, 1, 1)));
+	m_physicsScene->addActor(new Spring(ball3, ball4, 40, 0.5, glm::vec4(1, 1, 1, 1)));
 
 	Sphere* ball5 = new Sphere(glm::vec2(10, 20), glm::vec2(0, 0), 10.0f, 5, glm::vec4(1, 0, 0, 1));
 
