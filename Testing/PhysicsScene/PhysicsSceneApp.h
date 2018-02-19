@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "Renderer2D.h"
 #include "PhysicsScene.h"
+
 class PhysicsSceneApp : public aie::Application {
 public:
 
@@ -14,7 +15,9 @@ public:
 
 	virtual void update(float deltaTime);
 	virtual void draw();
-
+	void MakeSoftBody(int amountHigh, int amountWide, int circleRadius, float softBodyMass, glm::vec2 startPos, float distanceApart, float springStrength);
+	
+	bool distanceCheck(Sphere* sphere1, float distance, Sphere* sphereTwo);
 
 	//void setupConinuousDemo(glm::vec2 startPos, float inclination, float speed, float gravity);
 protected:

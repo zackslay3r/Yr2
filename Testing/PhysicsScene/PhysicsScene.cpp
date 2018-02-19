@@ -104,6 +104,8 @@ void PhysicsScene::debugScene()
 	}
 }
 
+
+
 //function pointer array for the collisions
 typedef bool(*fn)(PhysicsObject*, PhysicsObject*);
 
