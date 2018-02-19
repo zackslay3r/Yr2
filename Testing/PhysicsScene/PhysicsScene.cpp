@@ -220,6 +220,10 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 			touchpos = (glm::normalize(sphere2->getPosition() - sphere1->getPosition()) * sphere1->getRadius());
 			sphere1->resolveCollision(sphere2,touchpos);
 			float radiusSum = sphere1->getRadius() + sphere2->getRadius();
+			if (sphere2->isKinematic())
+			{
+				sphere1->setPosition(sphere1->getPosition() + direction * (radiusSum - distanceAway));
+			}
 			if (sphere1->isKinematic())
 			{
 				sphere2->setPosition(sphere2->getPosition() - direction * (radiusSum - distanceAway));
