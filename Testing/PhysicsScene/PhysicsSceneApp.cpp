@@ -114,13 +114,13 @@ bool PhysicsSceneApp::startup() {
 
 
 	// MakeSoftBody(rows,coloums,circleRadius,softbodymass,startingpos,spacing,springstrength)
-	MakeSoftBody(5, 20, 5, 12.5, glm::vec2(300, 600), 12.5, 0.6, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
+	MakeSoftBody(5, 20, 5, 12.5, glm::vec2(300, 600), 12.5, 0.75, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
 
-	MakeSoftBody(5, 5, 10, 12.5, glm::vec2(300, 700), 25, 0.6, glm::vec4(1, 0, 0, 1), glm::vec4(1, 0, 0, 1));
+	MakeSoftBody(5, 5, 10, 12.5, glm::vec2(300, 700), 25, 0.75, glm::vec4(1, 0, 0, 1), glm::vec4(1, 0, 0, 1));
 
 	//MakeSoftBody(3, 3, 7, 3, glm::vec2(500, 700), 16, 0.4, glm::vec4(0, 0, 1, 1), glm::vec4(0, 0, 1, 1));
 
-	Sphere* staticBall8 = new Sphere(glm::vec2(300, 200), glm::vec2(0, 0), 1.3f, 25, glm::vec4(1, 1, 1, 1));
+	Sphere* staticBall8 = new Sphere(glm::vec2(350, 200), glm::vec2(0, 0), 1.3f, 25, glm::vec4(1, 1, 1, 1));
 	staticBall8->setElasticity(0.9f);
 	staticBall8->setKinematic(true);
 	m_physicsScene->addActor(staticBall8);
