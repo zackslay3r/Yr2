@@ -15,7 +15,7 @@ public:
 
 	virtual void update(float deltaTime);
 	virtual void draw();
-	void MakeSoftBody(int amountHigh, int amountWide, int circleRadius, float softBodyMass, glm::vec2 startPos, float distanceApart, float springStrength);
+	void MakeSoftBody(int amountHigh, int amountWide, int circleRadius, float softBodyMass, glm::vec2 startPos, float distanceApart, float springStrength, glm::vec4 sphereColour ,glm::vec4 lineColour);
 	
 	bool distanceCheck(Sphere* sphere1, float distance, Sphere* sphereTwo);
 

@@ -34,17 +34,17 @@ bool PhysicsSceneApp::startup() {
 
 
 	Sphere* ball = new Sphere(glm::vec2(450, 130), glm::vec2(0, 0), 1.0f, 15, glm::vec4(1, 0, 0, 1));
-	
+
 	m_physicsScene->addActor(ball);
-	
+
 	Sphere* ballTwo = new Sphere(glm::vec2(-20, 30), glm::vec2(0, 0), 1.0f, 15, glm::vec4(0, 1, 0, 1));
 	m_physicsScene->addActor(ballTwo);
-	
+
 	Sphere* springBall2 = new Sphere(glm::vec2(35, 50), glm::vec2(0, 0), 1.3f, 15, glm::vec4(1, 1, 1, 1));
 	m_physicsScene->addActor(springBall2);
-	
 
-	Plane* floor = new Plane(glm::vec2(0, 1),20);
+
+	Plane* floor = new Plane(glm::vec2(0, 1), 20);
 	m_physicsScene->addActor(floor);
 
 
@@ -111,10 +111,14 @@ bool PhysicsSceneApp::startup() {
 	//
 
 	// testing that mass is 4.8 times the spring coffectant?
-	// MakeSoftBody(rows,coloums,circleRadius,softbodymass,startingpos,spacing,springstrength)
-	MakeSoftBody(6, 22, 7, 3, glm::vec2(400, 600),16, 0.1);
 
-	Sphere* staticBall8 = new Sphere(glm::vec2(540, 200), glm::vec2(0, 0), 1.3f, 25, glm::vec4(1, 1, 1, 1));
+
+	// MakeSoftBody(rows,coloums,circleRadius,softbodymass,startingpos,spacing,springstrength)
+	MakeSoftBody(10, 10, 5, 7.5, glm::vec2(300, 600), 12.5, 0.75, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
+
+	//MakeSoftBody(3, 3, 7, 3, glm::vec2(500, 700), 16, 0.4, glm::vec4(0, 0, 1, 1), glm::vec4(0, 0, 1, 1));
+
+	Sphere* staticBall8 = new Sphere(glm::vec2(300, 200), glm::vec2(0, 0), 1.3f, 25, glm::vec4(1, 1, 1, 1));
 	staticBall8->setElasticity(0.9f);
 	staticBall8->setKinematic(true);
 	m_physicsScene->addActor(staticBall8);
@@ -123,7 +127,7 @@ bool PhysicsSceneApp::startup() {
 	staticBall2->setElasticity(0.9f);
 	staticBall2->setKinematic(true);
 	m_physicsScene->addActor(staticBall2);
-	
+
 
 
 	Sphere* ball1;
@@ -131,21 +135,21 @@ bool PhysicsSceneApp::startup() {
 	ball1->setElasticity(0.9f);
 	ball1->setKinematic(true);
 	m_physicsScene->addActor(ball1);
-	
+
 	Sphere* ball2;
 	ball2 = new Sphere(glm::vec2(240, 400), glm::vec2(0, 0), 6, 15, glm::vec4(1, 1, 1, 1));
 	m_physicsScene->addActor(ball2);
-	m_physicsScene->addActor(new Spring(ball1, ball2, 40, 1, 0));
+	m_physicsScene->addActor(new Spring(ball1, ball2, 40, 1, glm::vec4(1, 1, 1, 1)));
 
 	Sphere* ball3;
 	ball3 = new Sphere(glm::vec2(280, 400), glm::vec2(0, 0), 6, 15, glm::vec4(1, 1, 1, 1));
 	m_physicsScene->addActor(ball3);
-	m_physicsScene->addActor(new Spring(ball2, ball3, 40, 1, 0));
+	m_physicsScene->addActor(new Spring(ball2, ball3, 40, 1, glm::vec4(1, 1, 1, 1)));
 
 	Sphere* ball4;
 	ball4 = new Sphere(glm::vec2(320, 400), glm::vec2(0, 0), 50, 15, glm::vec4(1, 1, 1, 1));
 	m_physicsScene->addActor(ball4);
-	m_physicsScene->addActor(new Spring(ball3, ball4, 40, 1, 0));
+	m_physicsScene->addActor(new Spring(ball3, ball4, 40, 1, glm::vec4(1, 1, 1, 1)));
 
 	Sphere* ball5 = new Sphere(glm::vec2(10, 20), glm::vec2(0, 0), 10.0f, 5, glm::vec4(1, 0, 0, 1));
 
@@ -247,7 +251,7 @@ void PhysicsSceneApp::draw() {
 	m_2dRenderer->end();
 }
 
-void PhysicsSceneApp::MakeSoftBody(int amountHigh, int amountWide, int circleRadius, float softBodyMass, glm::vec2 startPos, float distanceApart, float springStrength)
+void PhysicsSceneApp::MakeSoftBody(int amountHigh, int amountWide, int circleRadius, float circleMass, glm::vec2 startPos, float distanceApart, float springStrength, glm::vec4 sphereColour, glm::vec4 lineColour)
 {
 	// Before making all the new circles. we are going to create a temp list that these objects will get put into.
 	// this is important so that we can have all the newly created circles linked with each other, but not anything else.
@@ -261,7 +265,7 @@ void PhysicsSceneApp::MakeSoftBody(int amountHigh, int amountWide, int circleRad
 		for (int j = 0; j < amountWide; j++)
 		{
 			//m_physicsScene->addActor(new Sphere(glm::vec2((startPos.x + (distanceApart * j)), (startPos.y + (distanceApart * i))), glm::vec2(0, 0), softBodyMass, circleRadius, glm::vec4(0, 0, 1, 0)));
-			newSpheres.push_back(new Sphere(glm::vec2((startPos.x + (distanceApart * j)), (startPos.y + (distanceApart * i))), glm::vec2(0, 0), softBodyMass / (amountHigh * amountWide), circleRadius, glm::vec4(0, 0, 1, 0)));
+			newSpheres.push_back(new Sphere(glm::vec2((startPos.x + (distanceApart * j)), (startPos.y + (distanceApart * i))), glm::vec2(0, 0), circleMass, circleRadius, sphereColour));
 		}
 	}
 
@@ -274,11 +278,11 @@ void PhysicsSceneApp::MakeSoftBody(int amountHigh, int amountWide, int circleRad
 			{
 				if (distanceCheck(newSpheres.at(i), distanceApart + 1, newSpheres.at(j)))
 				{
-					newSprings.push_back(new Spring(newSpheres.at(i), newSpheres.at(j), distanceApart, springStrength));
+					newSprings.push_back(new Spring(newSpheres.at(i), newSpheres.at(j), distanceApart, (springStrength *(amountHigh * amountWide)),lineColour));
 				}
 				else
 				{
-					newSprings.push_back(new Spring(newSpheres.at(i), newSpheres.at(j), glm::sqrt(distanceApart * distanceApart + distanceApart * distanceApart), springStrength));
+					newSprings.push_back(new Spring(newSpheres.at(i), newSpheres.at(j), glm::sqrt(distanceApart * distanceApart + distanceApart * distanceApart), ((springStrength *(amountHigh * amountWide))),lineColour));
 				}
 			}
 			
