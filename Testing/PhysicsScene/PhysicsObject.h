@@ -7,7 +7,7 @@ enum ShapeType {
 	JOINT = -1,
 	PLANE,
 	SPHERE,
-	BOX
+	
 
 
 };

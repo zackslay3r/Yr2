@@ -13,7 +13,7 @@ Spring::Spring(RigidBody * body1, RigidBody * body2, float restLength, float spr
 	m_damping = damping;
 	m_contact1 = contact1;
 	m_contact2 = contact2;
-
+	m_shapeID = ShapeType::JOINT;
 }
 
 Spring::~Spring()

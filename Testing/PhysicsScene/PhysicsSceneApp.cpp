@@ -66,7 +66,7 @@ bool PhysicsSceneApp::startup() {
 	//m_physicsScene->addActor(new Spring(softBody1, softBody3, 37.74, 15, .1f));
 
 
-	MakeSoftBody(2, 2, 12, 4.1, glm::vec2(400, 500), 30, 1);
+	//MakeSoftBody(2, 2, 12, 4.1, glm::vec2(400, 500), 30, 1);
 
 	// This will create a 3x3 softbody
 	//Sphere* softBody11 = new Sphere(glm::vec2(600, 500), glm::vec2(0, 0), 1.0f, 10, glm::vec4(1, 0, 0, 1));
@@ -110,9 +110,11 @@ bool PhysicsSceneApp::startup() {
 	//m_physicsScene->addActor(new Spring(softBody88, softBody99, 30, 7, .1f));
 	//
 
-	MakeSoftBody(6, 3, 10, 5, glm::vec2(500, 300), 30, 1);
+	// testing that mass is 4.8 times the spring coffectant?
+	// MakeSoftBody(rows,coloums,circleRadius,softbodymass,startingpos,spacing,springstrength)
+	MakeSoftBody(6, 22, 7, 3, glm::vec2(400, 600),16, 0.25);
 
-	Sphere* staticBall8 = new Sphere(glm::vec2(580, 200), glm::vec2(0, 0), 1.3f, 25, glm::vec4(1, 1, 1, 1));
+	Sphere* staticBall8 = new Sphere(glm::vec2(540, 200), glm::vec2(0, 0), 1.3f, 25, glm::vec4(1, 1, 1, 1));
 	staticBall8->setElasticity(0.9f);
 	staticBall8->setKinematic(true);
 	m_physicsScene->addActor(staticBall8);
@@ -216,7 +218,7 @@ void PhysicsSceneApp::update(float deltaTime) {
 		
 		mouseY /= 2;
 		mouseY *= 100;*/
-		m_physicsScene->addActor(new Sphere(glm::vec2((float)mouseX, (float)mouseY), glm::vec2(0, 0), 1, 5, glm::vec4(1, 1, 1, 1)));
+		m_physicsScene->addActor(new Sphere(glm::vec2((float)mouseX, (float)mouseY), glm::vec2(0, 0), 4, 10, glm::vec4(1, 1, 1, 1)));
 
 		//m_physicsScene->addActor(new Sphere(glm::vec2(((float)input->getMouseX() - (((float)screenWidth) * 0.5f) / 100),((float)input->getMouseY() - (((float)screenHeight) * 0.5f)) / 100), glm::vec2(0, 0), 1, 1, glm::vec4(1, 1, 1, 1)));
 	}
@@ -272,7 +274,7 @@ void PhysicsSceneApp::MakeSoftBody(int amountHigh, int amountWide, int circleRad
 			{
 				if (distanceCheck(newSpheres.at(i), distanceApart + 1, newSpheres.at(j)))
 				{
-					newSprings.push_back(new Spring(newSpheres.at(i), newSpheres.at(j), distanceApart, springStrength * 2));
+					newSprings.push_back(new Spring(newSpheres.at(i), newSpheres.at(j), distanceApart, springStrength));
 				}
 				else
 				{
