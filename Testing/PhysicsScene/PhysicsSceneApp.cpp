@@ -6,6 +6,7 @@
 #include "Spring.h"
 #include <list>
 #include <glm/ext.hpp>
+#include "Box.h"
 
 PhysicsSceneApp::PhysicsSceneApp() {
 
@@ -48,9 +49,9 @@ bool PhysicsSceneApp::startup() {
 	m_physicsScene->addActor(floor);
 
 
-
-
-
+	
+	Box* test = new Box(glm::vec2(10, 10), glm::vec4(1, 1, 1, 1), glm::vec2(200, 200), glm::vec2(0, 0), 1);
+	m_physicsScene->addActor(test);
 
 	// MakeSoftBody(rows,coloums,circleRadius,softbodymass,startingpos,spacing,springstrength)
 	MakeSoftBody(6, 20, 5, 25, glm::vec2(300, 600), 12.5, 0.75, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
