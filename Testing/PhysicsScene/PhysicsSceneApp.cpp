@@ -114,9 +114,9 @@ bool PhysicsSceneApp::startup() {
 
 
 	// MakeSoftBody(rows,coloums,circleRadius,softbodymass,startingpos,spacing,springstrength)
-	MakeSoftBody(10, 20, 5, 12.5, glm::vec2(300, 600), 12.5, 0.25, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
+	MakeSoftBody(6, 20, 5, 20, glm::vec2(300, 600), 12.5, 1.25, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
 
-	MakeSoftBody(5, 5, 10, 12.5, glm::vec2(300, 800), 24, 0.25, glm::vec4(1, 0, 0, 1), glm::vec4(1, 0, 0, 1));
+	MakeSoftBody(5, 5, 10, 20, glm::vec2(300, 800), 22.5, 1.25, glm::vec4(1, 0, 0, 1), glm::vec4(1, 0, 0, 1));
 
 	//MakeSoftBody(3, 3, 7, 3, glm::vec2(500, 700), 16, 0.4, glm::vec4(0, 0, 1, 1), glm::vec4(0, 0, 1, 1));
 
@@ -185,47 +185,11 @@ void PhysicsSceneApp::update(float deltaTime) {
 		
 		// get the point along the x that the mouse pointer hit
 		float mouseX = input->getMouseX();
+		float mouseY = input->getMouseY();		
 		
-
-		/*mouseX /= screenWidth;
-*/
-		// if this point is less than half of the screen width, we are going to make in negative for later.
-		//if (mouseX < screenWidth / 2)
-		//{
-		//	mouseX = -mouseX;
-		//}
-
-
-
-
-
-		//mouseX /= screenHeight;
-		//if (mouseX < (getWindowWidth() * 0.5))
-		//{
-		//	mouseX = 0 - mouseX;
-		//}
-
-
-		
-	
-		/*
-		mouseX /= 2;
-		mouseX = mouseX * 100;*/
-		//float mouseY = (input->getMouseY() / screenHeight) * 100;
-		float mouseY = input->getMouseY();
-	/*	mouseY /= screenHeight;
-		
-		
-		if (mouseY < (getWindowHeight() * 0.5))
-		{
-			mouseY = 0 - mouseY;
-		}
-		
-		mouseY /= 2;
-		mouseY *= 100;*/
 		m_physicsScene->addActor(new Sphere(glm::vec2((float)mouseX, (float)mouseY), glm::vec2(0, 0), 4, 10, glm::vec4(1, 1, 1, 1)));
 
-		//m_physicsScene->addActor(new Sphere(glm::vec2(((float)input->getMouseX() - (((float)screenWidth) * 0.5f) / 100),((float)input->getMouseY() - (((float)screenHeight) * 0.5f)) / 100), glm::vec2(0, 0), 1, 1, glm::vec4(1, 1, 1, 1)));
+		
 	}
 }
 
@@ -319,37 +283,4 @@ bool PhysicsSceneApp::distanceCheck(Sphere * sphere1, float distance, Sphere * s
 	}
 }
 
-//void PhysicsSceneApp::setupConinuousDemo(glm::vec2 startPos, float inclination, float speed, float gravity)
-//{
-//	float t = 0;
-//	float tStep = 0.5f;
-//	float radius = 1.0f;
-//	int segments = 12;
-//	glm::vec4 colour = glm::vec4(1, 1, 0, 1);
-//
-//	while (t <= 5)
-//	{
-//		// calculate the x,y position of the projectile at time t
-//		float x = 0;
-//		float y	= 0;
-//		glm::vec2 velocity = glm::vec2(cos(inclination) * speed, sin(inclination) * speed);
-//		//velocity.x = velocity.x * tStep;
-//		//velocity.y = velocity.y * tStep;
-//
-//		//float tempVar = (gravity * (tStep * tStep)) * 0.5;
-//
-//		//velocity.y = velocity.y + tempVar;
-//
-//		//y = velocity.y;
-//
-//		x = startPos.x + velocity.x * t;
-//		y = startPos.y + velocity.y * t - 0.5f * gravity * (t*t);
-//
-//		
-//
-//		aie::Gizmos::add2DCircle(glm::vec2(x, y), radius, segments, colour);
-//		t += tStep;
-//	}
-//
-//
-//}
+
