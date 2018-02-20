@@ -33,15 +33,15 @@ bool PhysicsSceneApp::startup() {
 
 
 
-	Sphere* ball = new Sphere(glm::vec2(450, 130), glm::vec2(0, 0), 1.0f, 15, glm::vec4(1, 0, 0, 1));
+	//Sphere* ball = new Sphere(glm::vec2(450, 130), glm::vec2(0, 0), 1.0f, 15, glm::vec4(1, 0, 0, 1));
 
-	m_physicsScene->addActor(ball);
+	//m_physicsScene->addActor(ball);
 
-	Sphere* ballTwo = new Sphere(glm::vec2(-20, 30), glm::vec2(0, 0), 1.0f, 15, glm::vec4(0, 1, 0, 1));
-	m_physicsScene->addActor(ballTwo);
+	//Sphere* ballTwo = new Sphere(glm::vec2(-20, 30), glm::vec2(0, 0), 1.0f, 15, glm::vec4(0, 1, 0, 1));
+	//m_physicsScene->addActor(ballTwo);
 
-	Sphere* springBall2 = new Sphere(glm::vec2(35, 50), glm::vec2(0, 0), 1.3f, 15, glm::vec4(1, 1, 1, 1));
-	m_physicsScene->addActor(springBall2);
+	//Sphere* springBall2 = new Sphere(glm::vec2(35, 50), glm::vec2(0, 0), 1.3f, 15, glm::vec4(1, 1, 1, 1));
+	//m_physicsScene->addActor(springBall2);
 
 
 	Plane* floor = new Plane(glm::vec2(0, 1), 20);
@@ -114,9 +114,11 @@ bool PhysicsSceneApp::startup() {
 
 
 	// MakeSoftBody(rows,coloums,circleRadius,softbodymass,startingpos,spacing,springstrength)
-	MakeSoftBody(6, 20, 5, 20, glm::vec2(300, 600), 12.5, 1.25, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
+	MakeSoftBody(6, 20, 5, 25, glm::vec2(300, 600), 12.5, 1.25, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
 
-	MakeSoftBody(5, 5, 10, 20, glm::vec2(300, 800), 22.5, 1.25, glm::vec4(1, 0, 0, 1), glm::vec4(1, 0, 0, 1));
+	//MakeSoftBody(3, 3, 5, 20, glm::vec2(300, 600), 12.5, 5, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
+
+	//MakeSoftBody(5, 5, 10, 20, glm::vec2(300, 800), 22.5, 1.25, glm::vec4(1, 0, 0, 1), glm::vec4(1, 0, 0, 1));
 
 	//MakeSoftBody(3, 3, 7, 3, glm::vec2(500, 700), 16, 0.4, glm::vec4(0, 0, 1, 1), glm::vec4(0, 0, 1, 1));
 
@@ -190,6 +192,51 @@ void PhysicsSceneApp::update(float deltaTime) {
 		m_physicsScene->addActor(new Sphere(glm::vec2((float)mouseX, (float)mouseY), glm::vec2(0, 0), 4, 10, glm::vec4(1, 1, 1, 1)));
 
 		
+	}
+
+	if (input->wasKeyPressed(aie::INPUT_KEY_DELETE))
+	{
+		std::vector<PhysicsObject*> tempVec;
+		Sphere* tempSphere;
+		int sphereCount = 0;
+		for (auto it : m_physicsScene->m_actors)
+		{
+			// loop though the stuff and make a vector of all the stuff we need to delete
+			
+
+			// search for a sphere and add it to the temp Vector.
+			if (it->getShapeId() == ShapeType::SPHERE && sphereCount == 0)
+			{
+				tempVec.push_back(it);
+				tempSphere = ((Sphere*)it);
+				sphereCount++;
+			}
+		}		
+		
+			for (auto var : m_physicsScene->m_actors)
+			{
+					if (var->getShapeId() == ShapeType::JOINT)
+					{
+						if (((Spring*)var)->m_body1 == tempSphere || ((Spring*)var)->m_body2 == tempSphere)
+						{
+							tempVec.push_back(var);
+						}
+					}
+
+				
+			}
+			
+			
+		
+
+		for (auto deleteItem : tempVec)
+		{
+			m_physicsScene->m_actors.erase(std::find(m_physicsScene->m_actors.begin(), m_physicsScene->m_actors.end(), deleteItem));
+
+		}
+		
+
+
 	}
 }
 
