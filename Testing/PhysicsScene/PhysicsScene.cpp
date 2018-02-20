@@ -151,6 +151,65 @@ void PhysicsScene::checkForCollision()
 	}
 }
 
+void PhysicsScene::checkForCollision(Sphere *collisionCheckSphere)
+{
+	int actorCount = m_actors.size();
+	PhysicsObject* object1 = collisionCheckSphere;
+	std::vector<PhysicsObject*> toDelete;
+
+
+	for (int actors = 0; actors < actorCount; actors++)
+	{
+		PhysicsObject* object2 = m_actors[actors];
+
+		int shapeId1 = object1->getShapeId();
+		int shapeId2 = object2->getShapeId();
+
+
+		if (shapeId1 < 0 || shapeId2 < 0)
+		{
+			continue;
+		}
+		// using function pointers
+		int functionIdx = (shapeId1 * SHAPE_COUNT) + shapeId2;
+		fn collisionFunctionPtr = collisionFunctionArray[functionIdx];
+		if (collisionFunctionPtr != nullptr)
+		{
+			//did a collision occur?
+			if (collisionFunctionPtr(object1, object2) == true)
+			{
+				
+
+				for (auto var : m_actors)
+				{
+					if (var->getShapeId() == ShapeType::JOINT)
+					{
+						if (((Spring*)var)->m_body1 == object2 || ((Spring*)var)->m_body2 == object2)
+						{
+							toDelete.push_back(var);
+						}
+					}
+
+
+				}
+				
+				toDelete.push_back(object2);
+				
+				
+				//m_actors.erase(std::find(m_actors.begin(), m_actors.end(), object2));
+			}
+			
+		}
+
+	}
+	for (auto deleteItem : toDelete)
+	{
+	m_actors.erase(std::find(m_actors.begin(), m_actors.end(), deleteItem));
+	}
+}
+
+
+
 bool PhysicsScene::plane2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 {
 	return false;

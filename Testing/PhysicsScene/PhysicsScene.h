@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Sphere.h"
 #include "Plane.h"
+#include "Spring.h"
 
 using namespace std;
 
@@ -28,6 +29,7 @@ public:
 	float getTimeStep() const { return m_timeStep; }
 
 	void checkForCollision();
+	void checkForCollision(Sphere* collisionCheckSphere);
 
 	static bool plane2Plane(PhysicsObject*, PhysicsObject*);
 	static bool plane2Sphere(PhysicsObject*, PhysicsObject*);

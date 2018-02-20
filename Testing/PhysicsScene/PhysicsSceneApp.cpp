@@ -48,73 +48,12 @@ bool PhysicsSceneApp::startup() {
 	m_physicsScene->addActor(floor);
 
 
-	//// This creates the 2x2 softbody
-	//Sphere* softBody1 = new Sphere(glm::vec2(400, 500), glm::vec2(0, 0), 1.0f, 12, glm::vec4(1, 0, 0, 1));
-	//m_physicsScene->addActor(softBody1);
-	//Sphere* softBody2 = new Sphere(glm::vec2(430, 500), glm::vec2(0, 0), 1.0f, 12, glm::vec4(0, 1, 0, 1));
-	//m_physicsScene->addActor(softBody2);
-	//Sphere* softBody3 = new Sphere(glm::vec2(430, 470), glm::vec2(0, 0), 1.0f, 12, glm::vec4(0, 0, 1, 1));
-	//m_physicsScene->addActor(softBody3);
-	//Sphere* softBody4 = new Sphere(glm::vec2(400, 470), glm::vec2(0, 0), 1.0f, 12, glm::vec4(1, 1, 1, 1));
-	//m_physicsScene->addActor(softBody4);
-
-	//m_physicsScene->addActor(new Spring(softBody1, softBody2, 30, 7, .1f));
-	//m_physicsScene->addActor(new Spring(softBody2, softBody3, 30, 7, .1f));
-	//m_physicsScene->addActor(new Spring(softBody3, softBody4, 30, 7, .1f));
-	//m_physicsScene->addActor(new Spring(softBody4, softBody1, 30, 7, .1f));
-	//m_physicsScene->addActor(new Spring(softBody2, softBody4, 37.74, 15, .1f));
-	//m_physicsScene->addActor(new Spring(softBody1, softBody3, 37.74, 15, .1f));
 
 
-	//MakeSoftBody(2, 2, 12, 4.1, glm::vec2(400, 500), 30, 1);
-
-	// This will create a 3x3 softbody
-	//Sphere* softBody11 = new Sphere(glm::vec2(600, 500), glm::vec2(0, 0), 1.0f, 10, glm::vec4(1, 0, 0, 1));
-	//m_physicsScene->addActor(softBody11);
-	//Sphere* softBody22 = new Sphere(glm::vec2(630, 500), glm::vec2(0, 0), 1.0f, 10, glm::vec4(0, 1, 0, 1));
-	//m_physicsScene->addActor(softBody22);
-	//Sphere* softBody33 = new Sphere(glm::vec2(660, 500), glm::vec2(0, 0), 1.0f, 10, glm::vec4(0, 0, 1, 1));
-	//m_physicsScene->addActor(softBody33);
-	//Sphere* softBody44 = new Sphere(glm::vec2(600, 470), glm::vec2(0, 0), 1.0f, 10, glm::vec4(1, 1, 1, 1));
-	//m_physicsScene->addActor(softBody44);
-	//Sphere* softBody55 = new Sphere(glm::vec2(630, 470), glm::vec2(0, 0), 1.0f, 10, glm::vec4(1, 0, 0, 1));
-	//m_physicsScene->addActor(softBody55);
-	//Sphere* softBody66 = new Sphere(glm::vec2(660, 470), glm::vec2(0, 0), 1.0f, 10, glm::vec4(0, 1, 0, 1));
-	//m_physicsScene->addActor(softBody66);
-	//Sphere* softBody77 = new Sphere(glm::vec2(600, 440), glm::vec2(0, 0), 1.0f, 10, glm::vec4(0, 0, 1, 1));
-	//m_physicsScene->addActor(softBody77);
-	//Sphere* softBody88 = new Sphere(glm::vec2(630, 440), glm::vec2(0, 0), 1.0f, 10, glm::vec4(1, 1, 1, 1));
-	//m_physicsScene->addActor(softBody88);
-	//Sphere* softBody99 = new Sphere(glm::vec2(660, 440), glm::vec2(0, 0), 1.0f, 10, glm::vec4(1, 1, 1, 1));
-	//m_physicsScene->addActor(softBody99);
-
-	//m_physicsScene->addActor(new Spring(softBody11, softBody22, 30, 7, .1f));
-	//m_physicsScene->addActor(new Spring(softBody11, softBody44, 30, 7, .1f));
-	//m_physicsScene->addActor(new Spring(softBody11, softBody55, 37.74, 7, .1f));
-	//m_physicsScene->addActor(new Spring(softBody22, softBody33, 30, 7, .1f));
-	//m_physicsScene->addActor(new Spring(softBody22, softBody55, 30, 7, .1f));
-	//m_physicsScene->addActor(new Spring(softBody22, softBody66, 37.74, 15, .1f));
-	//m_physicsScene->addActor(new Spring(softBody33, softBody66, 30, 7, .1f));
-	//m_physicsScene->addActor(new Spring(softBody44, softBody55, 30, 7, .1f));
-	//m_physicsScene->addActor(new Spring(softBody44, softBody77, 30, 7, .1f));
-	//m_physicsScene->addActor(new Spring(softBody44, softBody88, 37.74, 15, .1f));
-	//m_physicsScene->addActor(new Spring(softBody55, softBody66, 30, 7, .1f));
-	//m_physicsScene->addActor(new Spring(softBody55, softBody88, 30, 7, .1f));
-	//m_physicsScene->addActor(new Spring(softBody55, softBody99, 37.74, 15, .1f));
-	//m_physicsScene->addActor(new Spring(softBody77, softBody88, 30, 7, .1f));
-	//m_physicsScene->addActor(new Spring(softBody88, softBody66, 37.74, 15, .1f));
-	//m_physicsScene->addActor(new Spring(softBody99, softBody66, 30, 7, .1f));
-	//m_physicsScene->addActor(new Spring(softBody44, softBody22, 37.74, 15, .1f));
-	//m_physicsScene->addActor(new Spring(softBody55, softBody33, 37.74, 15, .1f));
-	//m_physicsScene->addActor(new Spring(softBody77, softBody55, 37.74, 15, .1f));
-	//m_physicsScene->addActor(new Spring(softBody88, softBody99, 30, 7, .1f));
-	//
-
-	// testing that mass is 4.8 times the spring coffectant?
 
 
 	// MakeSoftBody(rows,coloums,circleRadius,softbodymass,startingpos,spacing,springstrength)
-	MakeSoftBody(6, 20, 5, 25, glm::vec2(300, 600), 12.5, 1.25, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
+	MakeSoftBody(6, 20, 5, 25, glm::vec2(300, 600), 12.5, 0.75, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
 
 	//MakeSoftBody(3, 3, 5, 20, glm::vec2(300, 600), 12.5, 5, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
 
@@ -193,7 +132,23 @@ void PhysicsSceneApp::update(float deltaTime) {
 
 		
 	}
+	// Deletion via right mouse button
+	if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_RIGHT))
+	{
+		glm::vec2 tempVec;
+		tempVec.x = input->getMouseX();
+		tempVec.y = input->getMouseY();
 
+		Sphere* collisionSphere = new Sphere(tempVec, glm::vec2(0, 0), 1, 0.1, glm::vec4(1, 1, 1, 1));
+		collisionSphere->setKinematic(true);
+
+		m_physicsScene->checkForCollision(collisionSphere);
+		
+	}
+
+
+
+	// Deletion via key
 	if (input->wasKeyPressed(aie::INPUT_KEY_DELETE))
 	{
 		std::vector<PhysicsObject*> tempVec;
