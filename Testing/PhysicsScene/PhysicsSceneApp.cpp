@@ -7,6 +7,8 @@
 #include <list>
 #include <glm/ext.hpp>
 #include "Box.h"
+#include <string>
+
 
 PhysicsSceneApp::PhysicsSceneApp() {
 
@@ -25,7 +27,7 @@ bool PhysicsSceneApp::startup() {
 
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
-	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
+	m_font = std::unique_ptr<aie::Font>(new aie::Font("../bin/font/consolas.ttf", 32));
 
 	m_physicsScene = new PhysicsScene();
 	m_physicsScene->setGravity(glm::vec2(0, -50));
@@ -49,12 +51,12 @@ bool PhysicsSceneApp::startup() {
 	m_physicsScene->addActor(floor);
 
 
-	
-	Box* test = new Box(glm::vec2(10, 10), glm::vec4(1, 1, 1, 1), glm::vec2(200, 200), glm::vec2(0, 0), 1);
-	m_physicsScene->addActor(test);
+	// Testing boxes here. 
+	//Box* test = new Box(glm::vec2(10, 10), glm::vec4(1, 1, 1, 1), glm::vec2(200, 200), glm::vec2(0, 0), 1);
+	//m_physicsScene->addActor(test);
 
 	// MakeSoftBody(rows,coloums,circleRadius,softbodymass,startingpos,spacing,springstrength)
-	MakeSoftBody(6, 20, 5, 25, glm::vec2(300, 600), 12.5, 0.75, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
+	//MakeSoftBody(6, 20, 5, 25, glm::vec2(300, 600), 12.5, 0.75, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
 
 	//MakeSoftBody(3, 3, 5, 20, glm::vec2(300, 600), 12.5, 5, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
 
@@ -102,7 +104,7 @@ bool PhysicsSceneApp::startup() {
 
 void PhysicsSceneApp::shutdown() {
 
-	delete m_font;
+
 	delete m_2dRenderer;
 }
 
@@ -146,6 +148,26 @@ void PhysicsSceneApp::update(float deltaTime) {
 		m_physicsScene->checkForCollision(collisionSphere);
 		
 	}
+
+	if (input->wasKeyPressed(aie::INPUT_KEY_KP_ADD))
+	{
+		spawnIndex++;
+
+		if (spawnIndex + 1 > AmountOfShapes)
+		{
+			spawnIndex = 0;
+		}
+	}
+	if (input->wasKeyPressed(aie::INPUT_KEY_KP_SUBTRACT))
+	{
+		spawnIndex--;
+
+		if (spawnIndex < 0)
+		{
+			spawnIndex = AmountOfShapes - 1;
+		}
+	}
+
 
 
 
@@ -212,7 +234,12 @@ void PhysicsSceneApp::draw() {
 	
 	aie::Gizmos::draw2D(glm::ortho<float>(0, this->getWindowWidth(), 0, this->getWindowHeight(), -1.0f, 1.0f));
 	// output some text, uses the last used colour
-	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
+	m_2dRenderer->drawText(m_font.get(), "Press ESC to quit", 0, 0);
+
+	// convert the spawn index to string
+	std::string spawnStr = convertIndex(spawnIndex);
+
+	m_2dRenderer->drawText(m_font.get(),spawnStr.c_str(), 800, 650);
 
 
 	// done drawing sprites
@@ -284,6 +311,27 @@ bool PhysicsSceneApp::distanceCheck(Sphere * sphere1, float distance, Sphere * s
 	{
 		return false;
 	}
+}
+
+std::string PhysicsSceneApp::convertIndex(int shapeIndex)
+{
+	switch (shapeIndex + 1)
+	{
+	case 1:
+		return std::string("Plane");
+		break;
+	case 2:
+		return std::string("Sphere");
+		break;
+	case 3:
+		return std::string("Softbody");
+		break;
+	default:
+		return std::string("NULL");
+		break;
+	}
+		
+	
 }
 
 
