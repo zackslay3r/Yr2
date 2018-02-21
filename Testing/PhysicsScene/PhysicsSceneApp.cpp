@@ -149,6 +149,24 @@ void PhysicsSceneApp::update(float deltaTime) {
 		
 	}
 
+	if (input->wasMouseButtonPressed(aie::INPUT_MOUSE_BUTTON_LEFT))
+	{
+		switch (spawnIndex + 1)
+		{
+		case 1:
+			m_physicsScene->addActor(new Plane(glm::vec2(0, 1), input->getMouseY()));
+			break;
+		case 2:
+			m_physicsScene->addActor(new Sphere(glm::vec2(input->getMouseX(), input->getMouseY()), glm::vec2(0, 0), 10, 6, glm::vec4(1, 0, 1, 1)));
+			break;
+		case 3:
+			MakeSoftBody(3, 3, 5, 5, glm::vec2(input->getMouseX(), input->getMouseY()), 10, 0.75, glm::vec4(1, 0, 1, 1), glm::vec4(1, 0, 1, 1));
+		default:
+			break;
+		}
+	
+	}
+
 	if (input->wasKeyPressed(aie::INPUT_KEY_KP_ADD))
 	{
 		spawnIndex++;
