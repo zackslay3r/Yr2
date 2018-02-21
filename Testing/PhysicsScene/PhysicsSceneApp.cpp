@@ -8,7 +8,7 @@
 #include <glm/ext.hpp>
 #include "Box.h"
 #include <string>
-
+#include <iomanip>
 
 PhysicsSceneApp::PhysicsSceneApp() {
 
@@ -170,7 +170,6 @@ void PhysicsSceneApp::update(float deltaTime) {
 	if (input->wasKeyPressed(aie::INPUT_KEY_KP_ADD))
 	{
 		spawnIndex++;
-
 		if (spawnIndex + 1 > AmountOfShapes)
 		{
 			spawnIndex = 0;
@@ -187,7 +186,66 @@ void PhysicsSceneApp::update(float deltaTime) {
 	}
 
 
+	if (input->wasKeyPressed(aie::INPUT_KEY_KP_7))
+	{
+		switch (spawnIndex)
+		{
+		case 0:
+			if (PlaneNormal.x < 1.0)
+			{
+				PlaneNormal.x += 0.1;
+				
+			}
 
+		default:
+			break;
+		}
+	}
+	if (input->wasKeyPressed(aie::INPUT_KEY_KP_8))
+	{
+		switch (spawnIndex)
+		{
+		case 0:
+			if (PlaneNormal.y < 1.0)
+			{
+				PlaneNormal.y += 0.1;
+
+			}
+
+		default:
+			break;
+		}
+	}
+	if (input->wasKeyPressed(aie::INPUT_KEY_KP_4))
+	{
+		switch (spawnIndex)
+		{
+		case 0:
+			if (PlaneNormal.x > 0.1)
+			{
+				PlaneNormal.x -= 0.1;
+
+			}
+
+		default:
+			break;
+		}
+	}
+	if (input->wasKeyPressed(aie::INPUT_KEY_KP_5))
+	{
+		switch (spawnIndex)
+		{
+		case 0:
+			if (PlaneNormal.y > 0.1)
+			{
+				PlaneNormal.y -= 0.1;
+
+			}
+
+		default:
+			break;
+		}
+	}
 
 	// Deletion via key
 	if (input->wasKeyPressed(aie::INPUT_KEY_DELETE))
@@ -234,6 +292,12 @@ void PhysicsSceneApp::update(float deltaTime) {
 
 
 	}
+
+	// Converting the floats to 1dp and outputting this if plane is selected. 
+	
+	sprintf_s(planex, "%.1f", PlaneNormal.x);
+	sprintf_s(planey, "%.1f", PlaneNormal.y);
+
 }
 
 void PhysicsSceneApp::draw() {
@@ -249,15 +313,20 @@ void PhysicsSceneApp::draw() {
 
 	//aie::Gizmos::draw2D(glm::ortho<float>(-100, 100, -100 / aspectRatio, 100 / aspectRatio, -1.0f, 1.0f));
 	
-	
+	std::string spawnStr = convertIndex(spawnIndex);
 	aie::Gizmos::draw2D(glm::ortho<float>(0, this->getWindowWidth(), 0, this->getWindowHeight(), -1.0f, 1.0f));
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font.get(), "Press ESC to quit", 0, 0);
 
-	// convert the spawn index to string
-	std::string spawnStr = convertIndex(spawnIndex);
 
 	m_2dRenderer->drawText(m_font.get(),spawnStr.c_str(), 800, 650);
+
+	switch (spawnIndex)
+	{
+	case 0:
+		m_2dRenderer->drawText(m_font.get(), planex, 900, 650);
+		m_2dRenderer->drawText(m_font.get(), planey, 1000, 650);
+	}
 
 
 	// done drawing sprites
