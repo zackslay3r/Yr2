@@ -338,8 +338,10 @@ void PhysicsSceneApp::draw() {
 		m_2dRenderer->drawText(m_font.get(), planey, 1000, 650);
 		break;
 	case 2:
-		m_2dRenderer->drawText(m_font.get(), to_string(SoftBodySizeX).c_str(), 800, 600);
-		m_2dRenderer->drawText(m_font.get(), to_string(SoftBodySizeY).c_str(), 850, 600);
+		m_2dRenderer->drawText(m_font.get(), "Height: ", 700, 550);
+		m_2dRenderer->drawText(m_font.get(), to_string(SoftBodySizeX).c_str(), 840, 550);
+		m_2dRenderer->drawText(m_font.get(), "Width: ", 700, 500);
+		m_2dRenderer->drawText(m_font.get(), to_string(SoftBodySizeY).c_str(), 840, 500);
 	}
 
 
