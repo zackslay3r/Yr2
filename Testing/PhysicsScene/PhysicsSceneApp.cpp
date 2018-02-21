@@ -154,7 +154,18 @@ void PhysicsSceneApp::update(float deltaTime) {
 		switch (spawnIndex + 1)
 		{
 		case 1:
-			m_physicsScene->addActor(new Plane(glm::vec2(0, 1), input->getMouseY()));
+			if (PlaneNormal.x > 0.01f && PlaneNormal.y < 0.1f)
+			{
+				m_physicsScene->addActor(new Plane(PlaneNormal, input->getMouseX()));
+			}
+			if (PlaneNormal.y > 0.01f && PlaneNormal.x < 0.1f)
+			{
+				m_physicsScene->addActor(new Plane(PlaneNormal, input->getMouseY()));
+			}
+			/*if(PlaneNormal.y > 0.01f && PlaneNormal.x > 0.01f)
+			{
+				m_physicsScene->addActor(new Plane(PlaneNormal, (abs(input->getMouseX() - 1280))));
+			}*/
 			break;
 		case 2:
 			m_physicsScene->addActor(new Sphere(glm::vec2(input->getMouseX(), input->getMouseY()), glm::vec2(0, 0), 10, 6, glm::vec4(1, 0, 1, 1)));
@@ -186,61 +197,54 @@ void PhysicsSceneApp::update(float deltaTime) {
 	}
 
 
-	if (input->wasKeyPressed(aie::INPUT_KEY_KP_7))
-	{
-		switch (spawnIndex)
-		{
-		case 0:
-			if (PlaneNormal.x < 1.0)
-			{
-				PlaneNormal.x += 0.1;
-				
-			}
+	//if (input->wasKeyPressed(aie::INPUT_KEY_KP_7))
+	//{
+	//	switch (spawnIndex)
+	//	{
+	//	case 0:
+	//		if (PlaneNormal.x < 1.0)
+	//		{
+	//			PlaneNormal.x += 0.1;
+	//			
+	//		}
 
-		default:
-			break;
-		}
-	}
-	if (input->wasKeyPressed(aie::INPUT_KEY_KP_8))
-	{
-		switch (spawnIndex)
-		{
-		case 0:
-			if (PlaneNormal.y < 1.0)
-			{
-				PlaneNormal.y += 0.1;
+	//	default:
+	//		break;
+	//	}
+	//}
+	//if (input->wasKeyPressed(aie::INPUT_KEY_KP_8))
+	//{
+	//	switch (spawnIndex)
+	//	{
+	//	case 0:
+	//		if (PlaneNormal.y < 1.0)
+	//		{
+	//			PlaneNormal.y += 0.1;
 
-			}
+	//		}
 
-		default:
-			break;
-		}
-	}
+	//	default:
+	//		break;
+	//	}
+	//}
 	if (input->wasKeyPressed(aie::INPUT_KEY_KP_4))
 	{
 		switch (spawnIndex)
 		{
 		case 0:
-			if (PlaneNormal.x > 0.1)
-			{
-				PlaneNormal.x -= 0.1;
-
-			}
-
+			PlaneNormal.x = 0.1;
+			PlaneNormal.y = 0.0;
 		default:
 			break;
 		}
 	}
-	if (input->wasKeyPressed(aie::INPUT_KEY_KP_5))
+	if (input->wasKeyPressed(aie::INPUT_KEY_KP_7))
 	{
 		switch (spawnIndex)
 		{
 		case 0:
-			if (PlaneNormal.y > 0.1)
-			{
-				PlaneNormal.y -= 0.1;
-
-			}
+			PlaneNormal.x = 0.0;
+			PlaneNormal.y = 0.1;
 
 		default:
 			break;
