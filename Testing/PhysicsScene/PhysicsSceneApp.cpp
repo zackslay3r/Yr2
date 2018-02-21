@@ -171,7 +171,7 @@ void PhysicsSceneApp::update(float deltaTime) {
 			m_physicsScene->addActor(new Sphere(glm::vec2(input->getMouseX(), input->getMouseY()), glm::vec2(0, 0), 10, 6, glm::vec4(1, 0, 1, 1)));
 			break;
 		case 3:
-			MakeSoftBody(3, 3, 5, 5, glm::vec2(input->getMouseX(), input->getMouseY()), 10, 0.75, glm::vec4(1, 0, 1, 1), glm::vec4(1, 0, 1, 1));
+			MakeSoftBody(SoftBodySizeX, SoftBodySizeY, 5, 5, glm::vec2(input->getMouseX(), input->getMouseY()), 10, 0.75, glm::vec4(1, 0, 1, 1), glm::vec4(1, 0, 1, 1));
 		default:
 			break;
 		}
@@ -197,36 +197,28 @@ void PhysicsSceneApp::update(float deltaTime) {
 	}
 
 
-	//if (input->wasKeyPressed(aie::INPUT_KEY_KP_7))
-	//{
-	//	switch (spawnIndex)
-	//	{
-	//	case 0:
-	//		if (PlaneNormal.x < 1.0)
-	//		{
-	//			PlaneNormal.x += 0.1;
-	//			
-	//		}
-
-	//	default:
-	//		break;
-	//	}
-	//}
-	//if (input->wasKeyPressed(aie::INPUT_KEY_KP_8))
-	//{
-	//	switch (spawnIndex)
-	//	{
-	//	case 0:
-	//		if (PlaneNormal.y < 1.0)
-	//		{
-	//			PlaneNormal.y += 0.1;
-
-	//		}
-
-	//	default:
-	//		break;
-	//	}
-	//}
+	if (input->wasKeyPressed(aie::INPUT_KEY_KP_7))
+	{
+		switch (spawnIndex)
+		{
+		case 2:
+			SoftBodySizeX += 1;
+			break;
+		default:
+			break;
+		}
+	}
+	if (input->wasKeyPressed(aie::INPUT_KEY_KP_8))
+	{
+		switch (spawnIndex)
+		{
+		case 2:
+			SoftBodySizeY += 1;
+			break;
+		default:
+			break;
+		}
+	}
 	if (input->wasKeyPressed(aie::INPUT_KEY_KP_4))
 	{
 		switch (spawnIndex)
@@ -234,18 +226,30 @@ void PhysicsSceneApp::update(float deltaTime) {
 		case 0:
 			PlaneNormal.x = 0.1;
 			PlaneNormal.y = 0.0;
+			break;
+		case 2:
+			if (SoftBodySizeX >= 1)
+			{
+				SoftBodySizeX -= 1;
+			}
+			break;
 		default:
 			break;
 		}
 	}
-	if (input->wasKeyPressed(aie::INPUT_KEY_KP_7))
+	if (input->wasKeyPressed(aie::INPUT_KEY_KP_5))
 	{
 		switch (spawnIndex)
 		{
 		case 0:
 			PlaneNormal.x = 0.0;
 			PlaneNormal.y = 0.1;
-
+			break;
+		case 2:
+			if (SoftBodySizeY >= 1)
+			{
+				SoftBodySizeY -= 1;
+			}
 		default:
 			break;
 		}
@@ -301,6 +305,8 @@ void PhysicsSceneApp::update(float deltaTime) {
 	
 	sprintf_s(planex, "%.1f", PlaneNormal.x);
 	sprintf_s(planey, "%.1f", PlaneNormal.y);
+	
+
 
 }
 
@@ -316,20 +322,24 @@ void PhysicsSceneApp::draw() {
 	static float aspectRatio = 16 / 9.f;
 
 	//aie::Gizmos::draw2D(glm::ortho<float>(-100, 100, -100 / aspectRatio, 100 / aspectRatio, -1.0f, 1.0f));
-	
+
 	std::string spawnStr = convertIndex(spawnIndex);
 	aie::Gizmos::draw2D(glm::ortho<float>(0, this->getWindowWidth(), 0, this->getWindowHeight(), -1.0f, 1.0f));
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font.get(), "Press ESC to quit", 0, 0);
 
 
-	m_2dRenderer->drawText(m_font.get(),spawnStr.c_str(), 800, 650);
+	m_2dRenderer->drawText(m_font.get(), spawnStr.c_str(), 800, 650);
 
 	switch (spawnIndex)
 	{
 	case 0:
 		m_2dRenderer->drawText(m_font.get(), planex, 900, 650);
 		m_2dRenderer->drawText(m_font.get(), planey, 1000, 650);
+		break;
+	case 2:
+		m_2dRenderer->drawText(m_font.get(), to_string(SoftBodySizeX).c_str(), 800, 600);
+		m_2dRenderer->drawText(m_font.get(), to_string(SoftBodySizeY).c_str(), 850, 600);
 	}
 
 

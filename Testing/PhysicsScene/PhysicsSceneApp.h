@@ -29,11 +29,16 @@ public:
 	int spawnIndex = 0;
 	int AmountOfShapes = 3;
 	glm::vec2 PlaneNormal  = glm::vec2(0.0f,0.0f);
-	glm::vec2 SoftBodySize = glm::vec2(3, 3);
+	int SoftBodySizeX = 3;
+	int SoftBodySizeY = 3;
 	float tempSpringCoefficent = 0.75;
 	float softBodyMass = 10;
 	char planex[255];
 	char planey[255];
+	char sbsizex[255];
+	char sbsizey[255];
+	char springco[255];
+	char softbdmass[255];
 
 protected:
 
