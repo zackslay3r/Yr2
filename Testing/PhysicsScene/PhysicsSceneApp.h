@@ -43,6 +43,6 @@ public:
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;
-	std::unique_ptr<aie::Font>	m_font;
+	std::unique_ptr<aie::Font>	m_font,m_screenText;
 	PhysicsScene*		m_physicsScene;
 };

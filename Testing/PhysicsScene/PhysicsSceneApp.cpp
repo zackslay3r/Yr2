@@ -28,6 +28,7 @@ bool PhysicsSceneApp::startup() {
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
 	m_font = std::unique_ptr<aie::Font>(new aie::Font("../bin/font/consolas.ttf", 32));
+	m_screenText = std::unique_ptr<aie::Font>(new aie::Font("../bin/font/consolas.ttf", 16));
 
 	m_physicsScene = new PhysicsScene();
 	m_physicsScene->setGravity(glm::vec2(0, -50));
@@ -36,33 +37,14 @@ bool PhysicsSceneApp::startup() {
 
 
 
-	//Sphere* ball = new Sphere(glm::vec2(450, 130), glm::vec2(0, 0), 1.0f, 15, glm::vec4(1, 0, 0, 1));
-
-	//m_physicsScene->addActor(ball);
-
-	//Sphere* ballTwo = new Sphere(glm::vec2(-20, 30), glm::vec2(0, 0), 1.0f, 15, glm::vec4(0, 1, 0, 1));
-	//m_physicsScene->addActor(ballTwo);
-
-	//Sphere* springBall2 = new Sphere(glm::vec2(35, 50), glm::vec2(0, 0), 1.3f, 15, glm::vec4(1, 1, 1, 1));
-	//m_physicsScene->addActor(springBall2);
+	
 
 
 	Plane* floor = new Plane(glm::vec2(0, 1), 20);
 	m_physicsScene->addActor(floor);
 
 
-	// Testing boxes here. 
-	//Box* test = new Box(glm::vec2(10, 10), glm::vec4(1, 1, 1, 1), glm::vec2(200, 200), glm::vec2(0, 0), 1);
-	//m_physicsScene->addActor(test);
 
-	// MakeSoftBody(rows,coloums,circleRadius,softbodymass,startingpos,spacing,springstrength)
-	//MakeSoftBody(6, 20, 5, 25, glm::vec2(300, 600), 12.5, 0.75, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
-
-	//MakeSoftBody(3, 3, 5, 20, glm::vec2(300, 600), 12.5, 5, glm::vec4(0, 1, 0, 1), glm::vec4(0, 1, 0, 1));
-
-	//MakeSoftBody(5, 5, 10, 20, glm::vec2(300, 800), 22.5, 1.25, glm::vec4(1, 0, 0, 1), glm::vec4(1, 0, 0, 1));
-
-	//MakeSoftBody(3, 3, 7, 3, glm::vec2(500, 700), 16, 0.4, glm::vec4(0, 0, 1, 1), glm::vec4(0, 0, 1, 1));
 
 	Sphere* staticBall8 = new Sphere(glm::vec2(350, 200), glm::vec2(0, 0), 1.3f, 25, glm::vec4(1, 1, 1, 1));
 	staticBall8->setElasticity(0.9f);
@@ -128,8 +110,8 @@ void PhysicsSceneApp::update(float deltaTime) {
 	{
 		
 		// get the point along the x that the mouse pointer hit
-		float mouseX = input->getMouseX();
-		float mouseY = input->getMouseY();		
+		float mouseX = float(input->getMouseX());
+		float mouseY = float(input->getMouseY());		
 		
 		m_physicsScene->addActor(new Sphere(glm::vec2((float)mouseX, (float)mouseY), glm::vec2(0, 0), 4, 10, glm::vec4(1, 1, 1, 1)));
 
@@ -162,10 +144,6 @@ void PhysicsSceneApp::update(float deltaTime) {
 			{
 				m_physicsScene->addActor(new Plane(PlaneNormal, input->getMouseY()));
 			}
-			/*if(PlaneNormal.y > 0.01f && PlaneNormal.x > 0.01f)
-			{
-				m_physicsScene->addActor(new Plane(PlaneNormal, (abs(input->getMouseX() - 1280))));
-			}*/
 			break;
 		case 2:
 			m_physicsScene->addActor(new Sphere(glm::vec2(input->getMouseX(), input->getMouseY()), glm::vec2(0, 0), 10, 6, glm::vec4(1, 0, 1, 1)));
@@ -329,19 +307,19 @@ void PhysicsSceneApp::draw() {
 	m_2dRenderer->drawText(m_font.get(), "Press ESC to quit", 0, 0);
 
 
-	m_2dRenderer->drawText(m_font.get(), spawnStr.c_str(), 800, 650);
+	m_2dRenderer->drawText(m_screenText.get(), spawnStr.c_str(), 800, 650);
 
 	switch (spawnIndex)
 	{
 	case 0:
-		m_2dRenderer->drawText(m_font.get(), planex, 900, 650);
-		m_2dRenderer->drawText(m_font.get(), planey, 1000, 650);
+		m_2dRenderer->drawText(m_screenText.get(), planex, 900, 650);
+		m_2dRenderer->drawText(m_screenText.get(), planey, 1000, 650);
 		break;
 	case 2:
-		m_2dRenderer->drawText(m_font.get(), "Height: ", 700, 550);
-		m_2dRenderer->drawText(m_font.get(), to_string(SoftBodySizeX).c_str(), 840, 550);
-		m_2dRenderer->drawText(m_font.get(), "Width: ", 700, 500);
-		m_2dRenderer->drawText(m_font.get(), to_string(SoftBodySizeY).c_str(), 840, 500);
+		m_2dRenderer->drawText(m_screenText.get(), "Height: ", 700, 550);
+		m_2dRenderer->drawText(m_screenText.get(), to_string(SoftBodySizeX).c_str(), 840, 550);
+		m_2dRenderer->drawText(m_screenText.get(), "Width: ", 700, 500);
+		m_2dRenderer->drawText(m_screenText.get(), to_string(SoftBodySizeY).c_str(), 840, 500);
 	}
 
 
