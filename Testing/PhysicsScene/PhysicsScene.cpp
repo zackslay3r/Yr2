@@ -151,60 +151,79 @@ void PhysicsScene::checkForCollision()
 	}
 }
 
-void PhysicsScene::checkForCollision(Sphere *collisionCheckSphere)
+void PhysicsScene::checkForCollisionDeletion(Sphere *collisionCheckSphere)
 {
 	int actorCount = m_actors.size();
-	PhysicsObject* object1 = collisionCheckSphere;
+	PhysicsObject* object1 = ((PhysicsObject*)collisionCheckSphere);
 	std::vector<PhysicsObject*> toDelete;
 
 
-	for (int actors = 0; actors < actorCount; actors++)
+	if (object1 != nullptr)
 	{
-		PhysicsObject* object2 = m_actors[actors];
-
-		int shapeId1 = object1->getShapeId();
-		int shapeId2 = object2->getShapeId();
-
-
-		if (shapeId1 < 0 || shapeId2 < 0)
+		for (int actors = 0; actors < actorCount; actors++)
 		{
-			continue;
-		}
-		// using function pointers
-		int functionIdx = (shapeId1 * SHAPE_COUNT) + shapeId2;
-		fn collisionFunctionPtr = collisionFunctionArray[functionIdx];
-		if (collisionFunctionPtr != nullptr)
-		{
-			//did a collision occur?
-			if (collisionFunctionPtr(object1, object2) == true)
+			PhysicsObject* object2 = m_actors[actors];
+
+			int shapeId1 = object1->getShapeId();
+			int shapeId2 = object2->getShapeId();
+
+
+			if (shapeId1 < 0 || shapeId2 < 0)
 			{
-				
-
-				for (auto var : m_actors)
-				{
-					if (var->getShapeId() == ShapeType::JOINT)
-					{
-						if (((Spring*)var)->m_body1 == object2 || ((Spring*)var)->m_body2 == object2)
-						{
-							toDelete.push_back(var);
-						}
-					}
-
-
-				}
-				
-				toDelete.push_back(object2);
-				
-				
-				//m_actors.erase(std::find(m_actors.begin(), m_actors.end(), object2));
+				continue;
 			}
-			
-		}
+			// using function pointers
+			int functionIdx = (shapeId1 * SHAPE_COUNT) + shapeId2;
+			fn collisionFunctionPtr = collisionFunctionArray[functionIdx];
+			if (collisionFunctionPtr != nullptr)
+			{
+				//did a collision occur?
+				if (collisionFunctionPtr(object1, object2) == true)
+				{
 
-	}
-	for (auto deleteItem : toDelete)
-	{
-	m_actors.erase(std::find(m_actors.begin(), m_actors.end(), deleteItem));
+					// For all the actors.
+					for (auto var : m_actors)
+					{
+						// if the shape is a joint.
+						if (var->getShapeId() == ShapeType::JOINT)
+						{
+							//get rid of the springs attached to that body.
+							if (((Spring*)var)->m_body1 == object2 || ((Spring*)var)->m_body2 == object2)
+							{
+								toDelete.push_back(var);
+							}
+						}
+
+
+					}
+					// to get rid of the main object.
+					toDelete.push_back(object2);
+
+				
+
+					//m_actors.erase(std::find(m_actors.begin(), m_actors.end(), object2));
+				}
+
+			}
+
+		}
+		for (auto deleteItem : toDelete)
+		{
+			
+			if (deleteItem != nullptr && toDelete.size() > 0)
+			{	
+				auto p = std::find(m_actors.begin(), m_actors.end(), deleteItem);
+				if (p == m_actors.end())
+				{
+					continue;
+				}
+				//if (p != m_actors.end())
+				else
+				{
+					m_actors.erase(std::find(m_actors.begin(), m_actors.end(), deleteItem));
+				}
+			}
+		}
 	}
 }
 

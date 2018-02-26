@@ -100,9 +100,37 @@ void PhysicsSceneApp::update(float deltaTime) {
 
 	m_physicsScene->update(deltaTime);
 	m_physicsScene->updateGizmos();
+	
+	// For all the actors, we are going to check their positions and if they exceed the screen boundaries
+	// delete them. this is for optimizations.
+	for (auto var : m_physicsScene->m_actors)
+	{
+		glm::vec2 position = ((RigidBody*)var)->getPosition();
+
+		if (position.x > this->getWindowWidth() || position.x < 0)
+		{
+			Sphere* deleteSphere = new Sphere(position, glm::vec2(0, 0), 1, 0.1, glm::vec4(1, 1, 1, 1));
+			deleteSphere->setKinematic(true);
+
+			m_physicsScene->checkForCollisionDeletion(deleteSphere);
+			delete deleteSphere;
+		}
+
+		if (position.y > this->getWindowHeight() || position.y < 0)
+		{
+			Sphere* deleteSphere = new Sphere(position, glm::vec2(0, 0), 1, 0.1, glm::vec4(1, 1, 1, 1));
+			deleteSphere->setKinematic(true);
+
+			m_physicsScene->checkForCollisionDeletion(deleteSphere);
+			delete deleteSphere;
+		}
+	}
+	
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
+	{
 		quit();
+	}
 	int screenWidth = getWindowWidth();
 	int screenHeight = getWindowHeight();
 
@@ -127,8 +155,8 @@ void PhysicsSceneApp::update(float deltaTime) {
 		Sphere* collisionSphere = new Sphere(tempVec, glm::vec2(0, 0), 1, 0.1, glm::vec4(1, 1, 1, 1));
 		collisionSphere->setKinematic(true);
 
-		m_physicsScene->checkForCollision(collisionSphere);
-		
+		m_physicsScene->checkForCollisionDeletion(collisionSphere);
+		delete collisionSphere;
 	}
 
 	if (input->wasMouseButtonPressed(aie::INPUT_MOUSE_BUTTON_LEFT))
@@ -149,7 +177,7 @@ void PhysicsSceneApp::update(float deltaTime) {
 			m_physicsScene->addActor(new Sphere(glm::vec2(input->getMouseX(), input->getMouseY()), glm::vec2(0, 0), 10, 6, glm::vec4(1, 0, 1, 1)));
 			break;
 		case 3:
-			MakeSoftBody(SoftBodySizeX, SoftBodySizeY, 5, 5, glm::vec2(input->getMouseX(), input->getMouseY()), 10, 0.75, glm::vec4(1, 0, 1, 1), glm::vec4(1, 0, 1, 1));
+			MakeSoftBody(SoftBodySizeX, SoftBodySizeY, 5, softBodyMass, glm::vec2(input->getMouseX(), input->getMouseY()), 10, tempSpringCoefficent, glm::vec4(1, 0, 1, 1), glm::vec4(1, 0, 1, 1));
 		default:
 			break;
 		}
@@ -263,9 +291,9 @@ void PhysicsSceneApp::update(float deltaTime) {
 		switch (spawnIndex)
 		{
 		case 2:
-			if (softBodyMass > 0)
+			if (softBodyMass >= 0.0)
 			{
-				softBodyMass += 1;
+				softBodyMass += 2.5;
 			}
 		default:
 			break;
@@ -276,9 +304,9 @@ void PhysicsSceneApp::update(float deltaTime) {
 		switch (spawnIndex)
 		{
 		case 2:
-			if (softBodyMass > 0)
+			if (softBodyMass > 0.0)
 			{
-				softBodyMass -= 1;
+				softBodyMass -= 2.5;
 			}
 		default:
 			break;
@@ -336,7 +364,7 @@ void PhysicsSceneApp::update(float deltaTime) {
 	sprintf_s(planex, "%.1f", PlaneNormal.x);
 	sprintf_s(planey, "%.1f", PlaneNormal.y);
 	sprintf_s(springco, "%.02f", tempSpringCoefficent);
-
+	sprintf_s(softbdmass, "%.02f", softBodyMass);
 
 }
 
@@ -383,7 +411,7 @@ void PhysicsSceneApp::draw() {
 		m_2dRenderer->drawText(m_screenText.get(), "Spring Coefficient: ", 996, 610);
 		m_2dRenderer->drawText(m_screenText.get(), springco, 1200, 610);
 		m_2dRenderer->drawText(m_screenText.get(), "Mass: ", 1100, 590);
-		m_2dRenderer->drawText(m_screenText.get(), to_string(softBodyMass).c_str(), 1200, 590);
+		m_2dRenderer->drawText(m_screenText.get(), softbdmass, 1200, 590);
 	}
 
 

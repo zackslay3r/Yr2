@@ -29,7 +29,7 @@ public:
 	float getTimeStep() const { return m_timeStep; }
 
 	void checkForCollision();
-	void checkForCollision(Sphere* collisionCheckSphere);
+	void checkForCollisionDeletion(Sphere* collisionCheckSphere);
 
 	static bool plane2Plane(PhysicsObject*, PhysicsObject*);
 	static bool plane2Sphere(PhysicsObject*, PhysicsObject*);
