@@ -29,7 +29,7 @@ bool PhysicsSceneApp::startup() {
 	// the following path would be used instead: "./font/consolas.ttf"
 	m_font = std::unique_ptr<aie::Font>(new aie::Font("../bin/font/consolas.ttf", 32));
 	m_screenText = std::unique_ptr<aie::Font>(new aie::Font("../bin/font/consolas.ttf", 16));
-
+	m_uiHelpText = std::unique_ptr<aie::Font>(new aie::Font("../bin/font/consolas.ttf", 12));
 	m_physicsScene = new PhysicsScene();
 	m_physicsScene->setGravity(glm::vec2(0, -50));
 	m_physicsScene->setTimeStep(0.01f);
@@ -66,17 +66,17 @@ bool PhysicsSceneApp::startup() {
 	Sphere* ball2;
 	ball2 = new Sphere(glm::vec2(240, 400), glm::vec2(0, 0), 6, 15, glm::vec4(1, 1, 1, 1));
 	m_physicsScene->addActor(ball2);
-	m_physicsScene->addActor(new Spring(ball1, ball2, 40, 0.5, glm::vec4(1, 1, 1, 1)));
+	m_physicsScene->addActor(new Spring(ball1, ball2, 40, 0.5, glm::vec4(1, 1, 1, 1),80));
 
 	Sphere* ball3;
 	ball3 = new Sphere(glm::vec2(280, 400), glm::vec2(0, 0), 6, 15, glm::vec4(1, 1, 1, 1));
 	m_physicsScene->addActor(ball3);
-	m_physicsScene->addActor(new Spring(ball2, ball3, 40, 0.5, glm::vec4(1, 1, 1, 1)));
+	m_physicsScene->addActor(new Spring(ball2, ball3, 40, 0.5, glm::vec4(1, 1, 1, 1),80));
 
 	Sphere* ball4;
 	ball4 = new Sphere(glm::vec2(320, 400), glm::vec2(0, 0), 50, 15, glm::vec4(1, 1, 1, 1));
 	m_physicsScene->addActor(ball4);
-	m_physicsScene->addActor(new Spring(ball3, ball4, 40, 0.5, glm::vec4(1, 1, 1, 1)));
+	m_physicsScene->addActor(new Spring(ball3, ball4, 40, 0.5, glm::vec4(1, 1, 1, 1),80));
 
 	Sphere* ball5 = new Sphere(glm::vec2(10, 20), glm::vec2(0, 0), 10.0f, 5, glm::vec4(1, 0, 0, 1));
 
@@ -100,7 +100,8 @@ void PhysicsSceneApp::update(float deltaTime) {
 
 	m_physicsScene->update(deltaTime);
 	m_physicsScene->updateGizmos();
-	
+	breakCheck();
+
 	// For all the actors, we are going to check their positions and if they exceed the screen boundaries
 	// delete them. this is for optimizations.
 	for (auto var : m_physicsScene->m_actors)
@@ -409,8 +410,7 @@ void PhysicsSceneApp::draw() {
 
 	//aie::Gizmos::draw2D(glm::ortho<float>(-100, 100, -100 / aspectRatio, 100 / aspectRatio, -1.0f, 1.0f));
 
-	std::string spawnStr = convertIndex(spawnIndex);
-	std::string boolText = convertBool(sphereKinematic);
+	
 	aie::Gizmos::draw2D(glm::ortho<float>(0, this->getWindowWidth(), 0, this->getWindowHeight(), -1.0f, 1.0f));
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font.get(), "Press ESC to quit", 0, 0);
@@ -419,41 +419,16 @@ void PhysicsSceneApp::draw() {
 	
 	
 
-	m_2dRenderer->drawText(m_screenText.get(), spawnStr.c_str(), 1150, 680);
+	
 
-	switch (spawnIndex)
-	{
-	case 0:
-		m_2dRenderer->drawText(m_screenText.get(), "X Axis: ", 1100, 650);
-		m_2dRenderer->drawText(m_screenText.get(), planex, 1200, 650);
-		m_2dRenderer->drawText(m_screenText.get(), "Y Axis: ", 1100, 630);
-		m_2dRenderer->drawText(m_screenText.get(), planey, 1200, 630);
-		break;
-	case 1:
-		m_2dRenderer->drawText(m_screenText.get(), "Size: ", 1100, 650);
-		m_2dRenderer->drawText(m_screenText.get(), to_string(sphereRadius).c_str(), 1200, 650);
-		m_2dRenderer->drawText(m_screenText.get(), "Mass: ", 1100, 630);
-		m_2dRenderer->drawText(m_screenText.get(), spheremass, 1200, 630);
-		m_2dRenderer->drawText(m_screenText.get(), "Is Kinematic?", 1050, 610);
-		m_2dRenderer->drawText(m_screenText.get(), boolText.c_str(), 1200, 610);
-
-		break;
-	case 2:
-		
-		m_2dRenderer->drawText(m_screenText.get(), to_string(SoftBodySizeX).c_str(), 1200, 650);
-		m_2dRenderer->drawText(m_screenText.get(), "Height: ", 1100, 650);
-		m_2dRenderer->drawText(m_screenText.get(), to_string(SoftBodySizeY).c_str(), 1200, 630);
-		m_2dRenderer->drawText(m_screenText.get(), "Width: ", 1109, 630);
-		m_2dRenderer->drawText(m_screenText.get(), "Spring Coefficient: ", 996, 610);
-		m_2dRenderer->drawText(m_screenText.get(), springco, 1200, 610);
-		m_2dRenderer->drawText(m_screenText.get(), "Mass: ", 1100, 590);
-		m_2dRenderer->drawText(m_screenText.get(), softbdmass, 1200, 590);
-	}
-
+	ShowUIElements();
+	showUIHelp();
 
 	// done drawing sprites
 	m_2dRenderer->end();
 }
+
+
 
 void PhysicsSceneApp::MakeSoftBody(int amountHigh, int amountWide, int circleRadius, float circleMass, glm::vec2 startPos, float distanceApart, float springStrength, glm::vec4 sphereColour, glm::vec4 lineColour)
 {
@@ -482,11 +457,11 @@ void PhysicsSceneApp::MakeSoftBody(int amountHigh, int amountWide, int circleRad
 			{
 				if (distanceCheck(newSpheres.at(i), distanceApart + 1, newSpheres.at(j)))
 				{
-					newSprings.push_back(new Spring(newSpheres.at(i), newSpheres.at(j), distanceApart, (springStrength *(amountHigh * amountWide)),lineColour));
+					newSprings.push_back(new Spring(newSpheres.at(i), newSpheres.at(j), distanceApart, (springStrength *(amountHigh * amountWide)),lineColour,30));
 				}
 				else
 				{
-					newSprings.push_back(new Spring(newSpheres.at(i), newSpheres.at(j), glm::sqrt(distanceApart * distanceApart + distanceApart * distanceApart), ((springStrength *(amountHigh * amountWide))),lineColour));
+					newSprings.push_back(new Spring(newSpheres.at(i), newSpheres.at(j), glm::sqrt(distanceApart * distanceApart + distanceApart * distanceApart), ((springStrength *(amountHigh * amountWide))),lineColour,30));
 				}
 			}
 			
@@ -556,6 +531,115 @@ std::string PhysicsSceneApp::convertIndex(int shapeIndex)
 	}
 		
 	
+}
+
+void PhysicsSceneApp::ShowUIElements()
+{
+	std::string spawnStr = convertIndex(spawnIndex);
+	std::string boolText = convertBool(sphereKinematic);
+	m_2dRenderer->drawText(m_screenText.get(), spawnStr.c_str(), 1150, 680);
+	switch (spawnIndex)
+	{
+	case 0:
+		m_2dRenderer->drawText(m_screenText.get(), "X Axis: ", 1100, 650);
+		m_2dRenderer->drawText(m_screenText.get(), planex, 1200, 650);
+		m_2dRenderer->drawText(m_screenText.get(), "Y Axis: ", 1100, 630);
+		m_2dRenderer->drawText(m_screenText.get(), planey, 1200, 630);
+		break;
+	case 1:
+		m_2dRenderer->drawText(m_screenText.get(), "Size: ", 1100, 650);
+		m_2dRenderer->drawText(m_screenText.get(), to_string(sphereRadius).c_str(), 1200, 650);
+		m_2dRenderer->drawText(m_screenText.get(), "Mass: ", 1100, 630);
+		m_2dRenderer->drawText(m_screenText.get(), spheremass, 1200, 630);
+		m_2dRenderer->drawText(m_screenText.get(), "Is Kinematic?", 1050, 610);
+		m_2dRenderer->drawText(m_screenText.get(), boolText.c_str(), 1200, 610);
+
+		break;
+	case 2:
+
+		m_2dRenderer->drawText(m_screenText.get(), to_string(SoftBodySizeX).c_str(), 1200, 650);
+		m_2dRenderer->drawText(m_screenText.get(), "Height: ", 1100, 650);
+		m_2dRenderer->drawText(m_screenText.get(), to_string(SoftBodySizeY).c_str(), 1200, 630);
+		m_2dRenderer->drawText(m_screenText.get(), "Width: ", 1109, 630);
+		m_2dRenderer->drawText(m_screenText.get(), "Spring Coefficient: ", 996, 610);
+		m_2dRenderer->drawText(m_screenText.get(), springco, 1200, 610);
+		m_2dRenderer->drawText(m_screenText.get(), "Mass: ", 1100, 590);
+		m_2dRenderer->drawText(m_screenText.get(), softbdmass, 1200, 590);
+	}
+}
+
+void PhysicsSceneApp::showUIHelp()
+{
+	m_2dRenderer->drawText(m_uiHelpText.get(), "Press + on the keypad to cycle forward through shapes.", 25, 700);
+	m_2dRenderer->drawText(m_uiHelpText.get(), "Press - on the keypad to cycle backward through shapes.", 25, 680);
+	m_2dRenderer->drawText(m_uiHelpText.get(), " Left click to place a shape.", 25, 660);
+	m_2dRenderer->drawText(m_uiHelpText.get(), " Right click to remove a shape.", 25, 640);
+	switch (spawnIndex)
+	{
+	case 0:
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 4 to make a vertical plane. this will make the X 0.0 and Y 0.1", 25, 620);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 5 to make a horizontal plane. this will make the X 0.1 and Y 0.0", 25, 600);
+		
+		break;
+	case 1:
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 7 to increase the size by 1.", 25, 620);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 4 to decrease the size by 1.", 25, 600);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 8 to increase the mass by 2.5.", 25, 580);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 5 to decrease the mass by 2.5.", 25, 560);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 9 to set the circle to be kinematic.", 25, 540);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 6 to set the circle to not be kinematic.", 25, 520);
+		break;
+	case 2:
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 7 to increase the height by 1.", 25, 620);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 4 to decrease the height by 1.", 25, 600);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 8 to increase the width by 1.", 25, 580);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 5 to decrease the width by 1.", 25, 560);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 9 to increase the spring coeffecient by 0.25.", 25, 540);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 6 to decrease the spring coeffecient by 0.25.", 25, 520);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press PgUp to increase the mass of each sphere by 2.5.", 25, 500);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press PgDown to decrease the mass of each sphere by 2.5.", 25, 480);
+		break;
+	}
+}
+
+void PhysicsSceneApp::breakCheck()
+{
+	std::vector<PhysicsObject*> springsToDelete;
+	for (auto spring : m_physicsScene->m_actors)
+	{
+		if (spring->getShapeId() == ShapeType::JOINT)
+		{
+			glm::vec2 p1 = ((Spring*)(spring))->m_body1->getPosition() + ((Spring*)(spring))->m_contact1;
+			glm::vec2 p2 = ((Spring*)(spring))->m_body2->getPosition() + ((Spring*)(spring))->m_contact2;
+			// calculate the distance away
+			glm::vec2 dist = p2 - p1;
+			float length = sqrtf(dist.x*dist.x + dist.y*dist.y);
+			// if the spring exceeds the distance limit, then add it to the delete list to break.
+			if (length > ((Spring*)spring)->m_breakForce)
+			{
+				springsToDelete.push_back(spring);
+			}
+		
+		}
+	}
+	// Then after all the springs are checked. delete from m_actors.
+	for (auto deleteItem :springsToDelete)
+	{
+
+		if (deleteItem != nullptr && springsToDelete.size() > 0)
+		{
+			auto p = std::find(m_physicsScene->m_actors.begin(), m_physicsScene->m_actors.end(), deleteItem);
+			if (p == m_physicsScene->m_actors.end())
+			{
+				continue;
+			}
+			//if (p != m_actors.end())
+			else
+			{
+				m_physicsScene->m_actors.erase(std::find(m_physicsScene->m_actors.begin(), m_physicsScene->m_actors.end(), deleteItem));
+			}
+		}
+	}
 }
 
 

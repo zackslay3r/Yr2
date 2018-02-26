@@ -27,6 +27,11 @@ public:
 	std::string convertIndex(int shapeIndex);
 	//void setupConinuousDemo(glm::vec2 startPos, float inclination, float speed, float gravity);
 
+	void ShowUIElements();
+	void showUIHelp();
+
+	void breakCheck();
+
 	int spawnIndex = 0;
 	int AmountOfShapes = 3;
 	glm::vec2 PlaneNormal  = glm::vec2(0.0f,0.0f);
@@ -48,6 +53,6 @@ public:
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;
-	std::unique_ptr<aie::Font>	m_font,m_screenText;
+	std::unique_ptr<aie::Font>	m_font,m_screenText,m_uiHelpText;
 	PhysicsScene*		m_physicsScene;
 };
