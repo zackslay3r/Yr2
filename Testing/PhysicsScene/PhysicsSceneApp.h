@@ -22,6 +22,7 @@ public:
 	// this distance check function is important for the setting of springs, as well as the removal of springs.
 	bool distanceCheck(Sphere* sphere1, float distance, Sphere* sphereTwo);
 
+	std::string convertBool(bool kinematic);
 
 	std::string convertIndex(int shapeIndex);
 	//void setupConinuousDemo(glm::vec2 startPos, float inclination, float speed, float gravity);
@@ -33,12 +34,16 @@ public:
 	int SoftBodySizeY = 3;
 	float tempSpringCoefficent = 0.75;
 	float softBodyMass = 10;
+	int sphereRadius = 5;
+	float sphereMass = 5;
+	bool sphereKinematic;
 	char planex[255];
 	char planey[255];
 	char sbsizex[255];
 	char sbsizey[255];
 	char springco[255];
 	char softbdmass[255];
+	char spheremass[255];
 
 protected:
 

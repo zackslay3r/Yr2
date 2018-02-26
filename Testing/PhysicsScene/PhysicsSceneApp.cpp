@@ -161,6 +161,7 @@ void PhysicsSceneApp::update(float deltaTime) {
 
 	if (input->wasMouseButtonPressed(aie::INPUT_MOUSE_BUTTON_LEFT))
 	{
+		Sphere* tempSphere = new Sphere(glm::vec2(input->getMouseX(), input->getMouseY()), glm::vec2(0, 0), sphereMass, sphereRadius, glm::vec4(1, 0, 1, 1));
 		switch (spawnIndex + 1)
 		{
 		case 1:
@@ -174,7 +175,13 @@ void PhysicsSceneApp::update(float deltaTime) {
 			}
 			break;
 		case 2:
-			m_physicsScene->addActor(new Sphere(glm::vec2(input->getMouseX(), input->getMouseY()), glm::vec2(0, 0), 10, 6, glm::vec4(1, 0, 1, 1)));
+			
+				if (sphereKinematic == true)
+				{
+					tempSphere->setKinematic(true);
+				}
+				m_physicsScene->addActor(tempSphere);
+
 			break;
 		case 3:
 			MakeSoftBody(SoftBodySizeX, SoftBodySizeY, 5, softBodyMass, glm::vec2(input->getMouseX(), input->getMouseY()), 10, tempSpringCoefficent, glm::vec4(1, 0, 1, 1), glm::vec4(1, 0, 1, 1));
@@ -207,6 +214,9 @@ void PhysicsSceneApp::update(float deltaTime) {
 	{
 		switch (spawnIndex)
 		{
+		case 1:
+			sphereRadius += 1.0f;
+			break;
 		case 2:
 			SoftBodySizeX += 1;
 			break;
@@ -218,6 +228,9 @@ void PhysicsSceneApp::update(float deltaTime) {
 	{
 		switch (spawnIndex)
 		{
+		case 1:
+			sphereMass += 2.5f;
+			break;
 		case 2:
 			SoftBodySizeY += 1;
 			break;
@@ -233,6 +246,11 @@ void PhysicsSceneApp::update(float deltaTime) {
 			PlaneNormal.x = 0.1;
 			PlaneNormal.y = 0.0;
 			break;
+		case 1:
+			if (sphereRadius > 0.0)
+			{
+				sphereRadius -= 1.0f;
+			}
 		case 2:
 			if (SoftBodySizeX >= 1)
 			{
@@ -251,6 +269,11 @@ void PhysicsSceneApp::update(float deltaTime) {
 			PlaneNormal.x = 0.0;
 			PlaneNormal.y = 0.1;
 			break;
+		case 1:
+			if (sphereMass > 0)
+			{
+				sphereMass -= 2.5f;
+			}
 		case 2:
 			if (SoftBodySizeY >= 1)
 			{
@@ -264,11 +287,13 @@ void PhysicsSceneApp::update(float deltaTime) {
 	{
 		switch (spawnIndex)
 		{
+		case 1:
+			sphereKinematic = true;
+			break;
 		case 2:
-			if (tempSpringCoefficent > 0.0)
-			{
+		
 				tempSpringCoefficent += 0.05;
-			}
+			
 		default:
 			break;
 		}
@@ -277,8 +302,11 @@ void PhysicsSceneApp::update(float deltaTime) {
 	{
 		switch (spawnIndex)
 		{
+		case 1:
+			sphereKinematic = false;
+			break;
 		case 2:
-			if (tempSpringCoefficent > 0.0)
+			if (tempSpringCoefficent > 0.04)
 			{
 				tempSpringCoefficent -= 0.05;
 			}
@@ -365,7 +393,7 @@ void PhysicsSceneApp::update(float deltaTime) {
 	sprintf_s(planey, "%.1f", PlaneNormal.y);
 	sprintf_s(springco, "%.02f", tempSpringCoefficent);
 	sprintf_s(softbdmass, "%.02f", softBodyMass);
-
+	sprintf_s(spheremass, "%.02f", sphereMass);
 }
 
 void PhysicsSceneApp::draw() {
@@ -382,6 +410,7 @@ void PhysicsSceneApp::draw() {
 	//aie::Gizmos::draw2D(glm::ortho<float>(-100, 100, -100 / aspectRatio, 100 / aspectRatio, -1.0f, 1.0f));
 
 	std::string spawnStr = convertIndex(spawnIndex);
+	std::string boolText = convertBool(sphereKinematic);
 	aie::Gizmos::draw2D(glm::ortho<float>(0, this->getWindowWidth(), 0, this->getWindowHeight(), -1.0f, 1.0f));
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font.get(), "Press ESC to quit", 0, 0);
@@ -399,7 +428,14 @@ void PhysicsSceneApp::draw() {
 		m_2dRenderer->drawText(m_screenText.get(), planex, 1200, 650);
 		m_2dRenderer->drawText(m_screenText.get(), "Y Axis: ", 1100, 630);
 		m_2dRenderer->drawText(m_screenText.get(), planey, 1200, 630);
-		
+		break;
+	case 1:
+		m_2dRenderer->drawText(m_screenText.get(), "Size: ", 1100, 650);
+		m_2dRenderer->drawText(m_screenText.get(), to_string(sphereRadius).c_str(), 1200, 650);
+		m_2dRenderer->drawText(m_screenText.get(), "Mass: ", 1100, 630);
+		m_2dRenderer->drawText(m_screenText.get(), spheremass, 1200, 630);
+		m_2dRenderer->drawText(m_screenText.get(), "Is Kinematic?", 1050, 610);
+		m_2dRenderer->drawText(m_screenText.get(), boolText.c_str(), 1200, 610);
 
 		break;
 	case 2:
@@ -485,6 +521,21 @@ bool PhysicsSceneApp::distanceCheck(Sphere * sphere1, float distance, Sphere * s
 		return false;
 	}
 }
+
+std::string PhysicsSceneApp::convertBool(bool kinematic)
+{
+	switch (kinematic)
+	{
+	case true:
+		return std::string("True");
+		break;
+	case false:
+		return std::string("False");
+		break;
+	}
+
+}
+
 
 std::string PhysicsSceneApp::convertIndex(int shapeIndex)
 {
