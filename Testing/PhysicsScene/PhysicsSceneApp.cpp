@@ -232,6 +232,58 @@ void PhysicsSceneApp::update(float deltaTime) {
 			break;
 		}
 	}
+	if (input->wasKeyPressed(aie::INPUT_KEY_KP_9))
+	{
+		switch (spawnIndex)
+		{
+		case 2:
+			if (tempSpringCoefficent > 0.0)
+			{
+				tempSpringCoefficent += 0.05;
+			}
+		default:
+			break;
+		}
+	}
+	if (input->wasKeyPressed(aie::INPUT_KEY_KP_6))
+	{
+		switch (spawnIndex)
+		{
+		case 2:
+			if (tempSpringCoefficent > 0.0)
+			{
+				tempSpringCoefficent -= 0.05;
+			}
+		default:
+			break;
+		}
+	}
+	if (input->wasKeyPressed(aie::INPUT_KEY_PAGE_UP))
+	{
+		switch (spawnIndex)
+		{
+		case 2:
+			if (softBodyMass > 0)
+			{
+				softBodyMass += 1;
+			}
+		default:
+			break;
+		}
+	}
+	if (input->wasKeyPressed(aie::INPUT_KEY_PAGE_DOWN))
+	{
+		switch (spawnIndex)
+		{
+		case 2:
+			if (softBodyMass > 0)
+			{
+				softBodyMass -= 1;
+			}
+		default:
+			break;
+		}
+	}
 
 	// Deletion via key
 	if (input->wasKeyPressed(aie::INPUT_KEY_DELETE))
@@ -283,7 +335,7 @@ void PhysicsSceneApp::update(float deltaTime) {
 	
 	sprintf_s(planex, "%.1f", PlaneNormal.x);
 	sprintf_s(planey, "%.1f", PlaneNormal.y);
-	
+	sprintf_s(springco, "%.02f", tempSpringCoefficent);
 
 
 }
@@ -307,19 +359,31 @@ void PhysicsSceneApp::draw() {
 	m_2dRenderer->drawText(m_font.get(), "Press ESC to quit", 0, 0);
 
 
-	m_2dRenderer->drawText(m_screenText.get(), spawnStr.c_str(), 800, 650);
+	
+	
+
+	m_2dRenderer->drawText(m_screenText.get(), spawnStr.c_str(), 1150, 680);
 
 	switch (spawnIndex)
 	{
 	case 0:
-		m_2dRenderer->drawText(m_screenText.get(), planex, 900, 650);
-		m_2dRenderer->drawText(m_screenText.get(), planey, 1000, 650);
+		m_2dRenderer->drawText(m_screenText.get(), "X Axis: ", 1100, 650);
+		m_2dRenderer->drawText(m_screenText.get(), planex, 1200, 650);
+		m_2dRenderer->drawText(m_screenText.get(), "Y Axis: ", 1100, 630);
+		m_2dRenderer->drawText(m_screenText.get(), planey, 1200, 630);
+		
+
 		break;
 	case 2:
-		m_2dRenderer->drawText(m_screenText.get(), "Height: ", 700, 550);
-		m_2dRenderer->drawText(m_screenText.get(), to_string(SoftBodySizeX).c_str(), 840, 550);
-		m_2dRenderer->drawText(m_screenText.get(), "Width: ", 700, 500);
-		m_2dRenderer->drawText(m_screenText.get(), to_string(SoftBodySizeY).c_str(), 840, 500);
+		
+		m_2dRenderer->drawText(m_screenText.get(), to_string(SoftBodySizeX).c_str(), 1200, 650);
+		m_2dRenderer->drawText(m_screenText.get(), "Height: ", 1100, 650);
+		m_2dRenderer->drawText(m_screenText.get(), to_string(SoftBodySizeY).c_str(), 1200, 630);
+		m_2dRenderer->drawText(m_screenText.get(), "Width: ", 1109, 630);
+		m_2dRenderer->drawText(m_screenText.get(), "Spring Coefficient: ", 996, 610);
+		m_2dRenderer->drawText(m_screenText.get(), springco, 1200, 610);
+		m_2dRenderer->drawText(m_screenText.get(), "Mass: ", 1100, 590);
+		m_2dRenderer->drawText(m_screenText.get(), to_string(softBodyMass).c_str(), 1200, 590);
 	}
 
 
