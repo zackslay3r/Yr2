@@ -33,7 +33,10 @@ void PhysicsScene::update(float dt)
 	static std::list<PhysicsObject*> dirty;
 	//update physics at a fixed time step
 
-
+	if (dt > m_timeStep)
+	{
+		dt = m_timeStep;
+	}
 	static float accumulatedTime = 0.0f;
 	accumulatedTime += dt;
 

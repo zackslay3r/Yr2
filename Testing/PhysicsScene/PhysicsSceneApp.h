@@ -43,6 +43,8 @@ public:
 	float sphereMass = 5;
 	int springBreak = 25;
 	bool sphereKinematic;
+	
+	// These char arrays are for the conversion from floats to floats with 2dp or 1dp.
 	char planex[255];
 	char planey[255];
 	char sbsizex[255];
@@ -50,6 +52,7 @@ public:
 	char springco[255];
 	char softbdmass[255];
 	char spheremass[255];
+
 
 protected:
 
