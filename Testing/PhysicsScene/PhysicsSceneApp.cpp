@@ -191,6 +191,10 @@ void PhysicsSceneApp::update(float deltaTime) {
 		}
 	
 	}
+	if (input->wasKeyPressed(aie::INPUT_KEY_F4))
+	{
+		m_physicsScene->m_actors.clear();
+	}
 
 	if (input->wasKeyPressed(aie::INPUT_KEY_KP_ADD))
 	{
@@ -342,6 +346,29 @@ void PhysicsSceneApp::update(float deltaTime) {
 		}
 	}
 
+	if (input->wasKeyPressed(aie::INPUT_KEY_HOME))
+	{
+		switch (spawnIndex)
+		{
+		case 2:
+			springBreak += 1;
+		default:
+			break;
+		}
+	}
+	if (input->wasKeyPressed(aie::INPUT_KEY_END))
+	{
+		switch (spawnIndex)
+		{
+		case 2:
+			if (springBreak > 0.0)
+			{
+				springBreak -= 1;
+			}
+		default:
+			break;
+		}
+	}
 	// Deletion via key
 	if (input->wasKeyPressed(aie::INPUT_KEY_DELETE))
 	{
@@ -414,7 +441,8 @@ void PhysicsSceneApp::draw() {
 	aie::Gizmos::draw2D(glm::ortho<float>(0, this->getWindowWidth(), 0, this->getWindowHeight(), -1.0f, 1.0f));
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font.get(), "Press ESC to quit", 0, 0);
-
+	setVSync(false);
+	m_2dRenderer->drawText(m_font.get(), to_string(getFPS()).c_str(), 1200, 30);
 
 	
 	
@@ -457,11 +485,11 @@ void PhysicsSceneApp::MakeSoftBody(int amountHigh, int amountWide, int circleRad
 			{
 				if (distanceCheck(newSpheres.at(i), distanceApart + 1, newSpheres.at(j)))
 				{
-					newSprings.push_back(new Spring(newSpheres.at(i), newSpheres.at(j), distanceApart, (springStrength *(amountHigh * amountWide)),lineColour,30));
+					newSprings.push_back(new Spring(newSpheres.at(i), newSpheres.at(j), distanceApart, (springStrength *(amountHigh * amountWide)),lineColour,springBreak));
 				}
 				else
 				{
-					newSprings.push_back(new Spring(newSpheres.at(i), newSpheres.at(j), glm::sqrt(distanceApart * distanceApart + distanceApart * distanceApart), ((springStrength *(amountHigh * amountWide))),lineColour,30));
+					newSprings.push_back(new Spring(newSpheres.at(i), newSpheres.at(j), glm::sqrt(distanceApart * distanceApart + distanceApart * distanceApart), ((springStrength *(amountHigh * amountWide))),lineColour,springBreak));
 				}
 			}
 			
@@ -501,14 +529,17 @@ std::string PhysicsSceneApp::convertBool(bool kinematic)
 {
 	switch (kinematic)
 	{
-	case true:
+	case 1:
 		return std::string("True");
 		break;
-	case false:
+	case 0:
 		return std::string("False");
 		break;
-	}
 
+	default:
+		return std::string("");
+		break;
+	}
 }
 
 
@@ -534,10 +565,9 @@ std::string PhysicsSceneApp::convertIndex(int shapeIndex)
 }
 
 void PhysicsSceneApp::ShowUIElements()
-{
+{	
 	std::string spawnStr = convertIndex(spawnIndex);
 	std::string boolText = convertBool(sphereKinematic);
-	m_2dRenderer->drawText(m_screenText.get(), spawnStr.c_str(), 1150, 680);
 	switch (spawnIndex)
 	{
 	case 0:
@@ -565,17 +595,24 @@ void PhysicsSceneApp::ShowUIElements()
 		m_2dRenderer->drawText(m_screenText.get(), springco, 1200, 610);
 		m_2dRenderer->drawText(m_screenText.get(), "Mass: ", 1100, 590);
 		m_2dRenderer->drawText(m_screenText.get(), softbdmass, 1200, 590);
+		m_2dRenderer->drawText(m_screenText.get(), "Spring Break Length: ", 1000, 570);
+		m_2dRenderer->drawText(m_screenText.get(), to_string(springBreak).c_str(), 1200, 570);
+		break;
 	}
+	
+	m_2dRenderer->drawText(m_screenText.get(), spawnStr.c_str(), 1150, 680);
 }
 
 void PhysicsSceneApp::showUIHelp()
 {
+	
+	m_2dRenderer->setRenderColour(0.0f, 1.0f, 0.0f);
 	m_2dRenderer->drawText(m_uiHelpText.get(), "Press + on the keypad to cycle forward through shapes.", 25, 700);
 	m_2dRenderer->drawText(m_uiHelpText.get(), "Press - on the keypad to cycle backward through shapes.", 25, 680);
 	m_2dRenderer->drawText(m_uiHelpText.get(), " Left click to place a shape.", 25, 660);
 	m_2dRenderer->drawText(m_uiHelpText.get(), " Right click to remove a shape.", 25, 640);
-	switch (spawnIndex)
-	{
+	m_2dRenderer->setRenderColour(1.0f, 0.0f, 0.0f);
+	switch (spawnIndex){
 	case 0:
 		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 4 to make a vertical plane. this will make the X 0.0 and Y 0.1", 25, 620);
 		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 5 to make a horizontal plane. this will make the X 0.1 and Y 0.0", 25, 600);
@@ -590,6 +627,7 @@ void PhysicsSceneApp::showUIHelp()
 		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 6 to set the circle to not be kinematic.", 25, 520);
 		break;
 	case 2:
+		
 		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 7 to increase the height by 1.", 25, 620);
 		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 4 to decrease the height by 1.", 25, 600);
 		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 8 to increase the width by 1.", 25, 580);
@@ -598,7 +636,12 @@ void PhysicsSceneApp::showUIHelp()
 		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 6 to decrease the spring coeffecient by 0.25.", 25, 520);
 		m_2dRenderer->drawText(m_uiHelpText.get(), "Press PgUp to increase the mass of each sphere by 2.5.", 25, 500);
 		m_2dRenderer->drawText(m_uiHelpText.get(), "Press PgDown to decrease the mass of each sphere by 2.5.", 25, 480);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press Home to increase spring break length by 1.", 25, 465);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press End to decrease spring break length by 1.", 25, 450);
 		break;
+	default:
+		break;
+
 	}
 }
 

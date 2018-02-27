@@ -41,6 +41,7 @@ public:
 	float softBodyMass = 10;
 	int sphereRadius = 5;
 	float sphereMass = 5;
+	int springBreak = 25;
 	bool sphereKinematic;
 	char planex[255];
 	char planey[255];
