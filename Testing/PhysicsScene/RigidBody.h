@@ -43,7 +43,7 @@ protected:
 	float m_angularVelocity;
 	float m_moment;
 	float m_mass;
-	float m_rotation; // 2D so we only need a signle float to represent our rotation.
+	float m_rotation; // 2D so we only need a single float to represent our rotation.
 	float m_elasticity;
 	bool m_isKinematic;
 
