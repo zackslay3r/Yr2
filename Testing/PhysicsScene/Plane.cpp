@@ -38,9 +38,7 @@ void Plane::makeGizmo()
 
 }
 
-void Plane::resetPosition()
-{
-}
+
 
 void Plane::resolveCollision(RigidBody * actor2)
 {
