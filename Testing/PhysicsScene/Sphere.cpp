@@ -12,6 +12,7 @@ Sphere::Sphere(glm::vec2 position, glm::vec2 velocity, float mass, float radius,
 	m_rotation = 0.0f;
 	m_angularVelocity = 0.0f;
 	m_shapeID = ShapeType::SPHERE;
+	m_elasticity = 1.0f;
 
 }
 

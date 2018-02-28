@@ -78,9 +78,7 @@ bool PhysicsSceneApp::startup() {
 	m_physicsScene->addActor(ball4);
 	m_physicsScene->addActor(new Spring(ball3, ball4, 40, 0.5, glm::vec4(1, 1, 1, 1),80));
 
-	Sphere* ball5 = new Sphere(glm::vec2(10, 20), glm::vec2(0, 0), 10.0f, 5, glm::vec4(1, 0, 0, 1));
-
-	m_physicsScene->addActor(ball5);
+	
 	return true;
 }
 
