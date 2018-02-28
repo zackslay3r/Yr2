@@ -161,6 +161,35 @@ virtual+ checkCollision(pOther : PhysicsObject*) : bool = 0
         </y:UMLClassNode>
       </data>
     </node>
+    <node id="n4">
+      <data key="d4"/>
+      <data key="d5"/>
+      <data key="d6">
+        <y:UMLClassNode>
+          <y:Geometry height="190.5" width="306.25" x="-289.63545918367356" y="1309.5737818877553"/>
+          <y:Fill color="#FFCC00" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="48.07177734375" x="129.089111328125" y="3.0">Sphere<y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
+            <y:AttributeLabel>#m_radius : float
+#m_colour : glm::vec4
+</y:AttributeLabel>
+            <y:MethodLabel>+Sphere(position : glm::vec2, velocity : glm::vec2, mass : float, radius : float, colour : glm::vec4)
++~Sphere();
+virtual +makeGizmo() : void
+virtual +checkCollision(pOther : PhysicsObject* ) : bool
++ getRadius() : float
++ getColour : glm::vec4</y:MethodLabel>
+          </y:UML>
+        </y:UMLClassNode>
+      </data>
+    </node>
   </graph>
   <data key="d7">
     <y:Resources/>
