@@ -1,5 +1,5 @@
 #include "RigidBody.h"
-#include "Global.h"
+
 #include "Sphere.h"
 inline glm::vec2 cross2D(float a, const glm::vec2& v) { return glm::vec2(-a * v.y, a * v.x); }
 
@@ -66,9 +66,7 @@ void RigidBody::fixedUpdate(glm::vec2 gravity, float timeStep)
 
 }
 
-void RigidBody::debug()
-{
-}
+
 
 // When applying the force, it will apply a force at a position (hence, the collision detection needs to know AT WHAT POSITION STUFF TOUCHED.)
 void RigidBody::applyForce(glm::vec2 force, glm::vec2 pos)

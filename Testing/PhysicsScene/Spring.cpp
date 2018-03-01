@@ -57,6 +57,4 @@ void Spring::makeGizmo()
 	aie::Gizmos::add2DLine(m_body1->getPosition() + m_contact1, m_body2->getPosition() + m_contact2, m_colour);
 }
 
-void Spring::debug()
-{
-}
+

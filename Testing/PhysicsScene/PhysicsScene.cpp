@@ -67,17 +67,7 @@ void PhysicsScene::updateGizmos()
 
 }
 
-void PhysicsScene::debugScene()
-{
-	int count = 0;
-	for (auto pActor : m_actors)
-	{
-		std::cout << count << " : ";
-		pActor->debug();
-		count++;
 
-	}
-}
 
 
 
