@@ -78,16 +78,7 @@ void RigidBody::applyForce(glm::vec2 force, glm::vec2 pos)
 
 }
 
-//void RigidBody::applyForceToActor(RigidBody * actor2, glm::vec2 force)
-//{
-//	glm::vec2 forceEquivalent;
-//
-//	forceEquivalent.x = force.x * 2.0f;
-//	forceEquivalent.y = force.y * 2.0f;
-//
-//	actor2->applyForce(forceEquivalent);
-//	this->applyForce(glm::vec2(-forceEquivalent.x,-forceEquivalent.y));
-//}
+
 
 void RigidBody::setVelocity(glm::vec2 newVelocity)
 {
@@ -114,59 +105,12 @@ void RigidBody::resolveCollision(RigidBody * actor2, glm::vec2 contact, glm::vec
 
 	glm::vec2 force = normal * j;
 
-	//applyForceToActor(actor2, force);
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//find the vector between their centres, or use the provided direction of force.
-	//glm::vec2 normal = collisionNormal ? *collisionNormal : glm::normalize(actor2->m_position - m_position);
+	
 
-	//// get the vector perpendicular to the collision normal.
-	//glm::vec2 perp = glm::vec2(normal.y, -normal.x);
+	//apply equal and opposite forces
+	applyForce(-force, contact - m_position);
+	actor2->applyForce(force, contact - actor2->m_position);
 
-	////determine the total velocity of the contact points for the two objects, for both linear and rotational
-	//// r is the radius from axis to application of force
-	//float r1 = glm::dot(contact - m_position, -perp);
-	//float r2 = glm::dot(contact - actor2->m_position, perp);
-	////// velocity of the contact point on this object
-	//float v1 = glm::dot(m_velocity, normal) - r1 * m_angularVelocity;
-	////// velocity of contact point on actor2
-	//float v2 = glm::dot(actor2->m_velocity, normal) + r2 * actor2->m_angularVelocity;
-
-
-	//////Define contact points on both objects relative to their COM.
-	////glm::vec2 rA = contact - m_position;
-	////glm::vec2 rB = contact - actor2->m_position;
-
-	//////Calculate relative velocity between the colliding objects.
-	////glm::vec2 rv = actor2->m_velocity + cross2D(actor2->m_angularVelocity, rB) -
-	////	m_velocity - cross2D(m_angularVelocity, rA);
-
-	//////Calculate relative velocity in the normal direction.
-	////float velAlongNormal = glm::dot(rv,normal);
-
-	//////Early exit if objects are separating.
-	//////if (velAlongNormal > 0) return;
-
-	////if (velAlongNormal <= 0) // if they are moving closer
-	////{
-	//// // calculate the effective mass at the contact point of each object
-	////// ie how much the contact point will move due to the force applied.
-	//if (v1 > v2)
-	//{
-	//	/*float mass1 = 1.0f / (1.0f / m_mass + (((Sphere*)this)->getRadius()*((Sphere*)this)->getRadius()) / m_moment);
-	//	float mass2 = 1.0f / (1.0f / actor2->m_mass + (((Sphere*)actor2)->getRadius()*((Sphere*)actor2)->getRadius()) / actor2->m_moment);*/
-	//	float mass1 = 1.0f / (1.0f / m_mass + (r1 * r1) / m_moment);
-	//	float mass2 = 1.0f / (1.0f / actor2->m_mass + (r2 * r2) / actor2->m_moment);
-
-
-	//	float elasticity = (m_elasticity + actor2->getElasticity()) / 2.0f;
-
-	//	glm::vec2 force = ((1.0f + elasticity) * mass1 * mass2 / (mass1 + mass2) * (v1 - v2) * normal);
-
-		//apply equal and opposite forces
-		applyForce(-force, contact - m_position);
-		actor2->applyForce(force, contact - actor2->m_position);
-	//}
-	//}
 }
 
 float RigidBody::getRotation()

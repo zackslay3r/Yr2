@@ -9,6 +9,7 @@
 Box::Box(glm::vec2 extents, glm::vec4 colour , glm::vec2 originOfBox, glm::vec2 velocity, float mass) : RigidBody(JOINT, originOfBox, velocity, 0, mass)
 {
 	m_extents = extents;
+	
 	width = extents.x * 2;
 	height = extents.y * 2;
 	m_colour = colour;

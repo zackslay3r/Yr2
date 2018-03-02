@@ -39,7 +39,7 @@ void Spring::fixedUpdate(glm::vec2 gravity, float timeStep)
 	// F = -kX - bv
 	glm::vec2 force = dist * m_springCoefficent * (m_restLength - length) - m_damping * relativeVelocity;
 
-
+	// if an object is not kinematic, then apply the force to the object.
 	if (!m_body1->isKinematic())
 	{
 		m_body1->applyForce(-force * timeStep, p1 - m_body1->getPosition());
