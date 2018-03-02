@@ -35,8 +35,29 @@ bool PhysicsSceneApp::startup() {
 	m_physicsScene->setTimeStep(0.01f);
 
 
+	// Spring demo.
+	Sphere* staticBall = new Sphere(glm::vec2(300, 400), glm::vec2(0, 0), 1, 6, glm::vec4(1, 1, 1, 1));
+	staticBall->setKinematic(true);
+	m_physicsScene->addActor(staticBall);
 
-	
+	Sphere* dynamicBall = new Sphere(glm::vec2(350, 400), glm::vec2(0, 0), 10, 6, glm::vec4(1, 1, 1, 1));
+	m_physicsScene->addActor(dynamicBall);
+
+	Spring* connector = new Spring(staticBall, dynamicBall, 50, 0.75, glm::vec4(1, 0, 0, 1), 100);
+	m_physicsScene->addActor(connector);
+
+
+
+	Sphere* staticBall2 = new Sphere(glm::vec2(400, 400), glm::vec2(0, 0), 1, 6, glm::vec4(1, 0, 0, 1));
+	staticBall2->setKinematic(true);
+	m_physicsScene->addActor(staticBall2);
+
+	Sphere* dynamicBall2 = new Sphere(glm::vec2(450, 400), glm::vec2(0, 0), 10, 6, glm::vec4(1, 0, 0, 1));
+	m_physicsScene->addActor(dynamicBall2);
+
+	Spring* joint = new Spring(staticBall2, dynamicBall2, 50, 50, glm::vec4(1, 0, 0, 1), 52);
+	m_physicsScene->addActor(joint);
+
 	return true;
 }
 
@@ -581,8 +602,8 @@ void PhysicsSceneApp::showUIHelp()
 	m_2dRenderer->setRenderColour(1.0f, 0.0f, 0.0f);
 	switch (spawnIndex){
 	case 0:
-		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 4 to make a vertical plane. this will make the X 0.0 and Y 0.1", 25, 620);
-		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 5 to make a horizontal plane. this will make the X 0.1 and Y 0.0", 25, 600);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 4 to make a vertical plane. this will make the X 0.1 and Y 0.0", 25, 620);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 5 to make a horizontal plane. this will make the X 0.0 and Y 0.1", 25, 600);
 		
 		break;
 	case 1:
