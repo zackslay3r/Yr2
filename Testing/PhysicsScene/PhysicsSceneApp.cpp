@@ -48,6 +48,8 @@ bool PhysicsSceneApp::startup() {
 
 
 
+	// Joint demo.
+
 	Sphere* staticBall2 = new Sphere(glm::vec2(400, 400), glm::vec2(0, 0), 1, 6, glm::vec4(1, 0, 0, 1));
 	staticBall2->setKinematic(true);
 	m_physicsScene->addActor(staticBall2);
@@ -57,6 +59,20 @@ bool PhysicsSceneApp::startup() {
 
 	Spring* joint = new Spring(staticBall2, dynamicBall2, 50, 50, glm::vec4(1, 0, 0, 1), 52);
 	m_physicsScene->addActor(joint);
+
+
+	Plane* floor = new Plane(glm::vec2(0, 0.1), 10);
+	m_physicsScene->addActor(floor);
+
+	// Make this the default value for the starting softbody.
+	springBreak = 36;
+	MakeSoftBody(4, 4, 10, 5, glm::vec2(500, 400), 25, 0.75, glm::vec4(1, 0, 0, 1), glm::vec4(0, 0, 1, 1));
+	// Then default it back for creation purposes.
+	springBreak = 25;
+
+	Sphere* SoftBodyBreaker = new Sphere(glm::vec2(530, 300), glm::vec2(0, 0), 1, 20, glm::vec4(1, 0, 1, 1));
+	SoftBodyBreaker->setKinematic(true);
+	m_physicsScene->addActor(SoftBodyBreaker);
 
 	return true;
 }
