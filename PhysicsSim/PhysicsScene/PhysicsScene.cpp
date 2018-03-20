@@ -10,6 +10,7 @@ PhysicsScene::PhysicsScene()
 
 PhysicsScene::~PhysicsScene()
 {
+	// delete all the actors from the vector so we dont get memory leaks.
 	for (auto pActor : m_actors)
 	{
 		delete pActor;
@@ -19,66 +20,50 @@ PhysicsScene::~PhysicsScene()
 
 void PhysicsScene::addActor(PhysicsObject * actor)
 {
+	// adding to the actors vector.
 	m_actors.push_back(actor);
 }
 
 void PhysicsScene::removeActor(PhysicsObject * actor)
 {
+	// set a variable to be actor that we wish to delete. and if we can find it, then delete it.
+	auto a = std::find(m_actors.begin(), m_actors.end(), actor);
+	// .end() function is a invisible object after the end of the vector.
+	if (a != m_actors.end())
+	{
+		m_actors.erase(std::find(m_actors.begin(), m_actors.end(), actor));
+	}
 }
 
 void PhysicsScene::update(float dt)
 {
 	// input example
 	aie::Input* input = aie::Input::getInstance();
-	static std::list<PhysicsObject*> dirty;
-	//update physics at a fixed time step
 
+	//update physics at a fixed time step
+	// this will ensure that the physics will slow if the frame rate is lower then warranted to prevent lockup.
 	if (dt > m_timeStep)
 	{
 		dt = m_timeStep;
 	}
+	
 	static float accumulatedTime = 0.0f;
 	accumulatedTime += dt;
 
+	// while accumlated is greater then the timestep.
 	while (accumulatedTime >= m_timeStep)
 	{
+		// for each opf the actors, do a fixed update.
 		for (auto pActor : m_actors)
 		{
 			pActor->fixedUpdate(m_gravity, m_timeStep);
 			
 
 		}
-
+		// then minus the timestep for the accumlated time.
 		accumulatedTime -= m_timeStep;
 
-
-		//check for collisions
-		//for (auto pActor : m_actors)
-		//{
-		//	for (auto pOther : m_actors)
-		//	{
-		//		if (pActor == pOther)
-		//		{
-		//			continue;
-		//		}
-
-		//		if (std::find(dirty.begin(), dirty.end(), pActor) != dirty.end() && std::find(dirty.begin(), dirty.end(), pOther) != dirty.end())
-		//		{
-		//			continue;
-		//		}
-
-		//		RigidBody* pRigid = dynamic_cast<RigidBody*>(pActor);
-
-		//		if (pRigid->checkCollision(pOther) == true)
-		//		{
-		//			pRigid->applyForceToActor(dynamic_cast<RigidBody*>(pOther), pRigid->getVelocity() * pRigid->getMass());
-		//			dirty.push_back(pRigid);
-		//			dirty.push_back(pOther);
-		//		}
-		//	
-		//	}
-		//}
-		/*dirty.clear();*/
+		// now checks for collisions.
 		checkForCollision();
 
 	}
@@ -88,6 +73,7 @@ void PhysicsScene::update(float dt)
 
 void PhysicsScene::updateGizmos()
 {
+	// for each of the actors. draw each of the objects.
 	for (auto pActor : m_actors)
 	{
 		pActor->makeGizmo();
@@ -95,17 +81,7 @@ void PhysicsScene::updateGizmos()
 
 }
 
-void PhysicsScene::debugScene()
-{
-	int count = 0;
-	for (auto pActor : m_actors)
-	{
-		std::cout << count << " : ";
-		pActor->debug();
-		count++;
 
-	}
-}
 
 
 
@@ -119,6 +95,7 @@ PhysicsScene::plane2Sphere,
 PhysicsScene::sphere2Plane,
 PhysicsScene::sphere2Sphere
 };
+
 
 void PhysicsScene::checkForCollision()
 {
@@ -135,14 +112,16 @@ void PhysicsScene::checkForCollision()
 			int shapeId1 = object1->getShapeId();
 			int shapeId2 = object2->getShapeId();
 
-
+			// if they are joints, we dont want to do a collision check.
 			if (shapeId1 < 0 || shapeId2 < 0)
 			{
 				continue;
 			}
-			// using function pointers
+			// using function pointers with a function index.
 			int functionIdx = ( shapeId1 * SHAPE_COUNT ) + shapeId2;
+			// function pointer assignment.
 			fn collisionFunctionPtr = collisionFunctionArray[functionIdx];
+			// if it is not null, then do the collision function based on the index.
 			if (collisionFunctionPtr != nullptr)
 			{
 				//did a collision occur?
@@ -156,11 +135,14 @@ void PhysicsScene::checkForCollision()
 
 void PhysicsScene::checkForCollisionDeletion(Sphere *collisionCheckSphere)
 {
+	//count all the actors.
 	int actorCount = m_actors.size();
+	// convert the sphere to a physics object.
 	PhysicsObject* object1 = ((PhysicsObject*)collisionCheckSphere);
+	// create a vector that will be used to store the items that need to be deleted.
 	std::vector<PhysicsObject*> toDelete;
 
-
+	// if the conversion was sucesful, get the shape id of the two objects, and then setting the function index.
 	if (object1 != nullptr)
 	{
 		for (int actors = 0; actors < actorCount; actors++)
@@ -210,6 +192,7 @@ void PhysicsScene::checkForCollisionDeletion(Sphere *collisionCheckSphere)
 			}
 
 		}
+		// for each item in the delete items vector, delete them from the actors vector.
 		for (auto deleteItem : toDelete)
 		{
 			
@@ -231,12 +214,13 @@ void PhysicsScene::checkForCollisionDeletion(Sphere *collisionCheckSphere)
 }
 
 
-
+// plane to plane will never happen.
 bool PhysicsScene::plane2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 {
 	return false;
 }
 
+// plane to sphere is sphere to plane.
 bool PhysicsScene::plane2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 {
 	if (sphere2Plane(obj2, obj1))
@@ -287,7 +271,7 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 	Sphere* sphere1 = dynamic_cast<Sphere*>(obj1);
 	Sphere* sphere2 = dynamic_cast<Sphere*>(obj2);
 
-	// if we suceed, test for a collision.
+	// if we succeed, test for a collision.
 
 	if (sphere1 != nullptr && sphere2 != nullptr)
 	{

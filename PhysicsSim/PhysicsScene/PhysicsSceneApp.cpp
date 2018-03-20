@@ -35,52 +35,45 @@ bool PhysicsSceneApp::startup() {
 	m_physicsScene->setTimeStep(0.01f);
 
 
+	// Spring demo.
+	Sphere* staticBall = new Sphere(glm::vec2(300, 400), glm::vec2(0, 0), 1, 6, glm::vec4(1, 1, 1, 1));
+	staticBall->setKinematic(true);
+	m_physicsScene->addActor(staticBall);
+
+	Sphere* dynamicBall = new Sphere(glm::vec2(350, 400), glm::vec2(0, 0), 10, 6, glm::vec4(1, 1, 1, 1));
+	m_physicsScene->addActor(dynamicBall);
+
+	Spring* connector = new Spring(staticBall, dynamicBall, 50, 0.75, glm::vec4(1, 0, 0, 1), 100);
+	m_physicsScene->addActor(connector);
 
 
-	
 
+	// Joint demo.
 
-	Plane* floor = new Plane(glm::vec2(0, 1), 20);
-	m_physicsScene->addActor(floor);
-
-
-
-
-	Sphere* staticBall8 = new Sphere(glm::vec2(350, 200), glm::vec2(0, 0), 1.3f, 25, glm::vec4(1, 1, 1, 1));
-	staticBall8->setElasticity(0.9f);
-	staticBall8->setKinematic(true);
-	m_physicsScene->addActor(staticBall8);
-
-	Sphere* staticBall2 = new Sphere(glm::vec2(410, 300), glm::vec2(0, 0), 1.3f, 25, glm::vec4(1, 1, 1, 1));
-	staticBall2->setElasticity(0.9f);
+	Sphere* staticBall2 = new Sphere(glm::vec2(400, 400), glm::vec2(0, 0), 1, 6, glm::vec4(1, 0, 0, 1));
 	staticBall2->setKinematic(true);
 	m_physicsScene->addActor(staticBall2);
 
+	Sphere* dynamicBall2 = new Sphere(glm::vec2(450, 400), glm::vec2(0, 0), 10, 6, glm::vec4(1, 0, 0, 1));
+	m_physicsScene->addActor(dynamicBall2);
+
+	Spring* joint = new Spring(staticBall2, dynamicBall2, 50, 50, glm::vec4(1, 0, 0, 1), 52);
+	m_physicsScene->addActor(joint);
 
 
-	Sphere* ball1;
-	ball1 = new Sphere(glm::vec2(200, 400), glm::vec2(0, 0), 1, 15, glm::vec4(1, 1, 1, 1));
-	ball1->setKinematic(true);
-	m_physicsScene->addActor(ball1);
+	Plane* floor = new Plane(glm::vec2(0, 0.1), 10);
+	m_physicsScene->addActor(floor);
 
-	Sphere* ball2;
-	ball2 = new Sphere(glm::vec2(240, 400), glm::vec2(0, 0), 6, 15, glm::vec4(1, 1, 1, 1));
-	m_physicsScene->addActor(ball2);
-	m_physicsScene->addActor(new Spring(ball1, ball2, 40, 0.5, glm::vec4(1, 1, 1, 1),80));
+	// Make this the default value for the starting softbody.
+	springBreak = 36;
+	MakeSoftBody(4, 4, 10, 5, glm::vec2(500, 400), 25, 0.75, glm::vec4(1, 0, 0, 1), glm::vec4(0, 0, 1, 1));
+	// Then default it back for creation purposes.
+	springBreak = 25;
 
-	Sphere* ball3;
-	ball3 = new Sphere(glm::vec2(280, 400), glm::vec2(0, 0), 6, 15, glm::vec4(1, 1, 1, 1));
-	m_physicsScene->addActor(ball3);
-	m_physicsScene->addActor(new Spring(ball2, ball3, 40, 0.5, glm::vec4(1, 1, 1, 1),80));
+	Sphere* SoftBodyBreaker = new Sphere(glm::vec2(530, 300), glm::vec2(0, 0), 1, 20, glm::vec4(1, 0, 1, 1));
+	SoftBodyBreaker->setKinematic(true);
+	m_physicsScene->addActor(SoftBodyBreaker);
 
-	Sphere* ball4;
-	ball4 = new Sphere(glm::vec2(320, 400), glm::vec2(0, 0), 50, 15, glm::vec4(1, 1, 1, 1));
-	m_physicsScene->addActor(ball4);
-	m_physicsScene->addActor(new Spring(ball3, ball4, 40, 0.5, glm::vec4(1, 1, 1, 1),80));
-
-	Sphere* ball5 = new Sphere(glm::vec2(10, 20), glm::vec2(0, 0), 10.0f, 5, glm::vec4(1, 0, 0, 1));
-
-	m_physicsScene->addActor(ball5);
 	return true;
 }
 
@@ -127,6 +120,11 @@ void PhysicsSceneApp::update(float deltaTime) {
 		}
 	}
 	
+
+	//
+	// ALL INPUTS
+	//
+
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 	{
@@ -162,10 +160,11 @@ void PhysicsSceneApp::update(float deltaTime) {
 
 	if (input->wasMouseButtonPressed(aie::INPUT_MOUSE_BUTTON_LEFT))
 	{
+		// create a temporary sphere in case a sphere is created as the target object.
 		Sphere* tempSphere = new Sphere(glm::vec2(input->getMouseX(), input->getMouseY()), glm::vec2(0, 0), sphereMass, sphereRadius, glm::vec4(1, 0, 1, 1));
-		switch (spawnIndex + 1)
+		switch (spawnIndex )
 		{
-		case 1:
+		case 0:
 			if (PlaneNormal.x > 0.01f && PlaneNormal.y < 0.1f)
 			{
 				m_physicsScene->addActor(new Plane(PlaneNormal, input->getMouseX()));
@@ -175,7 +174,7 @@ void PhysicsSceneApp::update(float deltaTime) {
 				m_physicsScene->addActor(new Plane(PlaneNormal, input->getMouseY()));
 			}
 			break;
-		case 2:
+		case 1:
 			
 				if (sphereKinematic == true)
 				{
@@ -184,13 +183,14 @@ void PhysicsSceneApp::update(float deltaTime) {
 				m_physicsScene->addActor(tempSphere);
 
 			break;
-		case 3:
+		case 2:
 			MakeSoftBody(SoftBodySizeX, SoftBodySizeY, 5, softBodyMass, glm::vec2(input->getMouseX(), input->getMouseY()), 10, tempSpringCoefficent, glm::vec4(1, 0, 1, 1), glm::vec4(1, 0, 1, 1));
 		default:
 			break;
 		}
 	
 	}
+	// a clear all function.
 	if (input->wasKeyPressed(aie::INPUT_KEY_F4))
 	{
 		m_physicsScene->m_actors.clear();
@@ -415,6 +415,10 @@ void PhysicsSceneApp::update(float deltaTime) {
 
 	}
 
+	//
+	//
+	//
+
 	// Converting the floats to 1dp and outputting this if plane is selected. 
 	
 	sprintf_s(planex, "%.1f", PlaneNormal.x);
@@ -426,7 +430,7 @@ void PhysicsSceneApp::update(float deltaTime) {
 
 void PhysicsSceneApp::draw() {
 
-	// wipe the screen to the background colour
+	// wipe the screen to the background color
 	clearScreen();
 
 	// begin drawing sprites
@@ -435,7 +439,7 @@ void PhysicsSceneApp::draw() {
 	// draw your stuff here!
 	static float aspectRatio = 16 / 9.f;
 
-	//aie::Gizmos::draw2D(glm::ortho<float>(-100, 100, -100 / aspectRatio, 100 / aspectRatio, -1.0f, 1.0f));
+	
 
 	
 	aie::Gizmos::draw2D(glm::ortho<float>(0, this->getWindowWidth(), 0, this->getWindowHeight(), -1.0f, 1.0f));
@@ -448,7 +452,7 @@ void PhysicsSceneApp::draw() {
 	
 
 	
-
+	// Show the UI elements and the help.
 	ShowUIElements();
 	showUIHelp();
 
@@ -614,8 +618,8 @@ void PhysicsSceneApp::showUIHelp()
 	m_2dRenderer->setRenderColour(1.0f, 0.0f, 0.0f);
 	switch (spawnIndex){
 	case 0:
-		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 4 to make a vertical plane. this will make the X 0.0 and Y 0.1", 25, 620);
-		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 5 to make a horizontal plane. this will make the X 0.1 and Y 0.0", 25, 600);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 4 to make a vertical plane. this will make the X 0.1 and Y 0.0", 25, 620);
+		m_2dRenderer->drawText(m_uiHelpText.get(), "Press 5 to make a horizontal plane. this will make the X 0.0 and Y 0.1", 25, 600);
 		
 		break;
 	case 1:

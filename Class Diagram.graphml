@@ -16,7 +16,6 @@
     <data key="d0"/>
     <node id="n0">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
           <y:Geometry height="56.0" width="154.0" x="926.0" y="496.0"/>
@@ -46,10 +45,9 @@
     </node>
     <node id="n1">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="179.68" width="401.2799999999999" x="221.00000000000003" y="210.00000000000003"/>
+          <y:Geometry height="179.68" width="401.2799999999999" x="-698.1351351351348" y="-8.827507891891855"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="93.59716796875" x="153.84141601562496" y="3.0">PhysicsObject<y:LabelModel>
@@ -74,10 +72,9 @@ ShapeType +getShapeId()
     </node>
     <node id="n2">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="223.19999999999993" width="368.00000000000006" x="-316.058125" y="449.99999999999994"/>
+          <y:Geometry height="223.19999999999993" width="368.00000000000006" x="-681.4951351351348" y="1053.9330594594594"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="38.68359375" x="164.65820312500003" y="3.0">Plane<y:LabelModel>
@@ -106,7 +103,6 @@ virtual +makeGizmo() : void
     </node>
     <node id="n3">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
           <y:Geometry height="601.7499999999999" width="786.3000000000002" x="81.94187500000004" y="517.2753124999999"/>
@@ -163,10 +159,9 @@ virtual+ checkCollision(pOther : PhysicsObject*) : bool = 0
     </node>
     <node id="n4">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="190.5" width="306.25" x="-289.63545918367356" y="1309.5737818877553"/>
+          <y:Geometry height="190.5" width="306.25" x="321.9668750000002" y="1374.2808954012687"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="48.07177734375" x="129.089111328125" y="3.0">Sphere<y:LabelModel>
@@ -190,6 +185,182 @@ virtual +checkCollision(pOther : PhysicsObject* ) : bool
         </y:UMLClassNode>
       </data>
     </node>
+    <node id="n5">
+      <data key="d4"/>
+      <data key="d5"/>
+      <data key="d6">
+        <y:UMLClassNode>
+          <y:Geometry height="292.7893517837838" width="401.1822010810811" x="-1304.9625089729725" y="582.7695870270262"/>
+          <y:Fill color="#FFCC00" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="45.16455078125" x="178.00882514991554" y="3.0">Spring<y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
+            <y:AttributeLabel>+ m_body1 : RigidBody*
++ m_body2 : RigidBody*
++ m_contact1 : glm::vec2
++ m_contact2 : glm::vec2
++ m_colour : glm::vec4
++ m_breakforce : float
++ m_damping : float
++ m_restLength : float
++ m_springCoefficent : float
+ </y:AttributeLabel>
+            <y:MethodLabel>+ Spring(body1 : RigidBody*, body2 : RigidBody*, restLength : float, springCoefficient : float, LineColour : glm::vec4, breakforce : float, damping : float = 0.1, contact1 : glm::vec2 = (0,0) ,contact2 : glm::vec2 = (0,0)) 
++ ~Spring()
++ fixedUpdate(gravity : glm::vec2, timeStep : float) : void
++ makeGizmo() : void
++ debug() : void</y:MethodLabel>
+          </y:UML>
+        </y:UMLClassNode>
+      </data>
+    </node>
+    <node id="n6">
+      <data key="d4"/>
+      <data key="d5"/>
+      <data key="d6">
+        <y:UMLClassNode>
+          <y:Geometry height="358.98668972972973" width="686.6778291891892" x="25.03309451762175" y="-8.827507891891855"/>
+          <y:Fill color="#FFCC00" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="91.4453125" x="297.6162583445946" y="3.0">PhysicsScene<y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
+            <y:AttributeLabel>+ m_actors : PhysicsObject*[*] 
+# m_gravity : glm::vec2
+# m_timeStep : float</y:AttributeLabel>
+            <y:MethodLabel>+ PhysicsScene()
++ ~PhysicsScene()
++ addActor(actor : PhysicsObject* ) : void
++ removeActor(actor : PhysicsObject* ) : void
++ update(dt : float) : void
++ updateGizmos() : void 
++ debugScene() : void
++ setGravity(gravity : const glm::vec2) void
++ setTimeStep(timeStep : const glm::vec2) void
++ getGravity() : const glm::vec2
++ getTimeStep() : const float
++ checkForCollision() : void
++ checkForCollisionDeletion(collisionCheckSphere : Sphere*) : void
++ plane2Plane(PhysicsObject*, PhysicsObject*) : static bool
++ plane2Sphere(PhysicsObject*, PhysicsObject*) : static bool
++ sphere2Plane(PhysicsObject*, PhysicsObject*) : static bool
++ sphere2Sphere(PhysicsObject*, PhysicsObject*) : static bool</y:MethodLabel>
+          </y:UML>
+        </y:UMLClassNode>
+      </data>
+    </node>
+    <node id="n7">
+      <data key="d4"/>
+      <data key="d5"/>
+      <data key="d6">
+        <y:UMLClassNode>
+          <y:Geometry height="584.7759582955243" width="1211.173581143178" x="828.6268155987029" y="-121.72214217478904"/>
+          <y:Fill color="#FFCC00" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="116.71533203125" x="547.229124555964" y="3.0">PhysicsSceneApp<y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
+            <y:AttributeLabel>+spawnIndex : int = 0
++AmountOfShapes : int = 3
++PlaneNormal : glm::vec2 = (0.0,0.0)
++SoftBodySizeX : int = 3
++SoftBodySizeY : int = 3
++ tempSpringCoeffeicent : float = 0.75
++ softBodyMass : float  = 10
++ sphereRadius : int = 5
++ sphereMass : int = 5
++ springBreak : int = 25
++ sphereKinematic : bool
++ planex : char[255]
++ planey : char[255]
++ sbsizex : char[255]
++ sbsizey : char[255]
++ springco : char[255]
++ softbdmass : char[255]
++ spheremass : char[255]
+# m_2dRenderer : aie::Renderer2D*
+# m_font : std::unique_ptr&lt;aie::Font&gt;
+# m_screenText : std::unique_ptr&lt;aie::Font&gt;
+# m_uiHelpText : std::unique_ptr&lt;aie::Font&gt;
+# m_physicsScene : PhysicsScene*</y:AttributeLabel>
+            <y:MethodLabel>+PhysicsSceneApp()
+virtual +~PhysicsSceneApp()
+virtual + startup() : bool
+virtual + shutdown() : void
+virtual + update(deltaTime : float) : void
+virtual + draw() : void
++ MakeSoftBody(amountHigh : int, amountWide : int, circleRadius : int, softBodyMass : float, startPos : glm::vec2, distanceApart : float, springStrength : float, sphereColour : glm::vec4 sphereColour, lineColour : glm::vec4) : void
++ distanceCheck(sphere1 : Sphere* , distance : float, sphere2 : Sphere*)
++ convertBool(kinematic : bool) : string
++ convertIndex(shapeIndex : int) :string
++ ShowUIElements() : void
++ showUIHelp() : void
++ breakCheck() : void
+</y:MethodLabel>
+          </y:UML>
+        </y:UMLClassNode>
+      </data>
+    </node>
+    <edge id="e0" source="n2" target="n1">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="white_delta"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e1" source="n3" target="n1">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="white_delta"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e2" source="n4" target="n3">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="white_delta"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e3" source="n5" target="n1">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="white_delta"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
   </graph>
   <data key="d7">
     <y:Resources/>
