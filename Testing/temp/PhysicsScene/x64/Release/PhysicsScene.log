@@ -1,0 +1,24 @@
+﻿  PhysicsSceneApp.cpp
+PhysicsSceneApp.cpp(113): warning C4305: 'argument': truncation from 'double' to 'float'
+PhysicsSceneApp.cpp(122): warning C4305: 'argument': truncation from 'double' to 'float'
+PhysicsSceneApp.cpp(153): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+PhysicsSceneApp.cpp(154): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+PhysicsSceneApp.cpp(156): warning C4305: 'argument': truncation from 'double' to 'float'
+PhysicsSceneApp.cpp(165): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+PhysicsSceneApp.cpp(171): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+PhysicsSceneApp.cpp(175): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+PhysicsSceneApp.cpp(219): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+PhysicsSceneApp.cpp(247): warning C4305: '=': truncation from 'double' to 'float'
+PhysicsSceneApp.cpp(253): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
+PhysicsSceneApp.cpp(271): warning C4305: '=': truncation from 'double' to 'float'
+PhysicsSceneApp.cpp(296): warning C4305: '+=': truncation from 'double' to 'float'
+PhysicsSceneApp.cpp(312): warning C4305: '-=': truncation from 'double' to 'float'
+PhysicsSceneApp.cpp(414): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+PhysicsSceneApp.cpp(447): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  main.cpp
+  Generating Code...
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(512): warning C4715: 'PhysicsSceneApp::convertBool': not all control paths return a value
+  bootstrap.lib(Gizmos.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+  Generating code
+  Finished generating code
+  PhysicsScene.vcxproj -> C:\Users\s171842\Documents\GitHub\Yr2\Testing\temp\PhysicsScene\x64\Release\PhysicsScene.exe

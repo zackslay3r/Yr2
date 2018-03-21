@@ -1,0 +1,23 @@
+﻿  PhysicsSceneApp.cpp
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(113): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(122): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(153): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(154): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(156): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(165): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(171): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(175): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(223): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(251): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(257): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(275): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(300): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(316): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(441): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(475): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(480): warning C4018: '<': signed/unsigned mismatch
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(482): warning C4018: '<': signed/unsigned mismatch
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(488): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(492): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\s171842\documents\github\yr2\testing\physicsscene\physicssceneapp.cpp(542): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
+  PhysicsScene.vcxproj -> C:\Users\s171842\Documents\GitHub\Yr2\Testing\temp\PhysicsScene\Win32\Debug\PhysicsScene.exe

@@ -1,0 +1,131 @@
+﻿  PhysicsSceneApp.cpp
+c:\users\s171842\documents\github\yr2\testing\physicsscene\PhysicsSceneApp.h(32): error C2039: 'Input': is not a member of 'aie'
+  C:\Users\s171842\Documents\GitHub\Yr2\Testing\bootstrap\Gizmos.h(5): note: see declaration of 'aie'
+c:\users\s171842\documents\github\yr2\testing\physicsscene\PhysicsSceneApp.h(32): error C2061: syntax error: identifier 'Input'
+PhysicsSceneApp.cpp(113): warning C4305: 'argument': truncation from 'double' to 'float'
+PhysicsSceneApp.cpp(122): warning C4305: 'argument': truncation from 'double' to 'float'
+PhysicsSceneApp.cpp(155): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+PhysicsSceneApp.cpp(189): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+PhysicsSceneApp.cpp(194): warning C4018: '<': signed/unsigned mismatch
+PhysicsSceneApp.cpp(196): warning C4018: '<': signed/unsigned mismatch
+PhysicsSceneApp.cpp(202): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+PhysicsSceneApp.cpp(206): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+PhysicsSceneApp.cpp(256): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
+PhysicsSceneApp.cpp(363): error C2511: 'void PhysicsSceneApp::inputChecks(aie::Input *)': overloaded member function not found in 'PhysicsSceneApp'
+  c:\users\s171842\documents\github\yr2\testing\physicsscene\PhysicsSceneApp.h(8): note: see declaration of 'PhysicsSceneApp'
+PhysicsSceneApp.cpp(371): error C2227: left of '->addActor' must point to class/struct/union/generic type
+PhysicsSceneApp.cpp(379): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+PhysicsSceneApp.cpp(380): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+PhysicsSceneApp.cpp(382): warning C4305: 'argument': truncation from 'double' to 'float'
+PhysicsSceneApp.cpp(385): error C2227: left of '->checkForCollisionDeletion' must point to class/struct/union/generic type
+PhysicsSceneApp.cpp(391): error C2597: illegal reference to non-static member 'PhysicsSceneApp::sphereMass'
+PhysicsSceneApp.cpp(391): error C2597: illegal reference to non-static member 'PhysicsSceneApp::sphereRadius'
+PhysicsSceneApp.cpp(392): error C2597: illegal reference to non-static member 'PhysicsSceneApp::spawnIndex'
+PhysicsSceneApp.cpp(392): error C3867: 'PhysicsSceneApp::spawnIndex': non-standard syntax; use '&' to create a pointer to member
+PhysicsSceneApp.cpp(395): error C2228: left of '.x' must have class/struct/union
+PhysicsSceneApp.cpp(395): error C2228: left of '.y' must have class/struct/union
+PhysicsSceneApp.cpp(397): error C2227: left of '->addActor' must point to class/struct/union/generic type
+PhysicsSceneApp.cpp(397): error C2597: illegal reference to non-static member 'PhysicsSceneApp::PlaneNormal'
+PhysicsSceneApp.cpp(399): error C2228: left of '.y' must have class/struct/union
+PhysicsSceneApp.cpp(399): error C2228: left of '.x' must have class/struct/union
+PhysicsSceneApp.cpp(401): error C2227: left of '->addActor' must point to class/struct/union/generic type
+PhysicsSceneApp.cpp(401): error C2597: illegal reference to non-static member 'PhysicsSceneApp::PlaneNormal'
+PhysicsSceneApp.cpp(406): error C2597: illegal reference to non-static member 'PhysicsSceneApp::sphereKinematic'
+PhysicsSceneApp.cpp(406): error C3867: 'PhysicsSceneApp::sphereKinematic': non-standard syntax; use '&' to create a pointer to member
+PhysicsSceneApp.cpp(410): error C2227: left of '->addActor' must point to class/struct/union/generic type
+PhysicsSceneApp.cpp(414): error C2597: illegal reference to non-static member 'PhysicsSceneApp::SoftBodySizeX'
+PhysicsSceneApp.cpp(414): error C2597: illegal reference to non-static member 'PhysicsSceneApp::SoftBodySizeY'
+PhysicsSceneApp.cpp(414): error C2597: illegal reference to non-static member 'PhysicsSceneApp::softBodyMass'
+PhysicsSceneApp.cpp(414): error C2597: illegal reference to non-static member 'PhysicsSceneApp::tempSpringCoefficent'
+PhysicsSceneApp.cpp(422): error C2227: left of '->m_actors' must point to class/struct/union/generic type
+PhysicsSceneApp.cpp(422): error C2228: left of '.clear' must have class/struct/union
+PhysicsSceneApp.cpp(427): error C2597: illegal reference to non-static member 'PhysicsSceneApp::spawnIndex'
+PhysicsSceneApp.cpp(427): error C3867: 'PhysicsSceneApp::spawnIndex': non-standard syntax; use '&' to create a pointer to member
+PhysicsSceneApp.cpp(427): error C2105: '++' needs l-value
+PhysicsSceneApp.cpp(428): error C2597: illegal reference to non-static member 'PhysicsSceneApp::spawnIndex'
+PhysicsSceneApp.cpp(428): error C3867: 'PhysicsSceneApp::spawnIndex': non-standard syntax; use '&' to create a pointer to member
+PhysicsSceneApp.cpp(428): error C2597: illegal reference to non-static member 'PhysicsSceneApp::AmountOfShapes'
+PhysicsSceneApp.cpp(428): error C3867: 'PhysicsSceneApp::AmountOfShapes': non-standard syntax; use '&' to create a pointer to member
+PhysicsSceneApp.cpp(428): error C2568: '>': unable to resolve function overload
+PhysicsSceneApp.cpp(430): error C2597: illegal reference to non-static member 'PhysicsSceneApp::spawnIndex'
+PhysicsSceneApp.cpp(435): error C2597: illegal reference to non-static member 'PhysicsSceneApp::spawnIndex'
+PhysicsSceneApp.cpp(435): error C3867: 'PhysicsSceneApp::spawnIndex': non-standard syntax; use '&' to create a pointer to member
+PhysicsSceneApp.cpp(435): error C2105: '--' needs l-value
+PhysicsSceneApp.cpp(437): error C2597: illegal reference to non-static member 'PhysicsSceneApp::spawnIndex'
+PhysicsSceneApp.cpp(437): error C3867: 'PhysicsSceneApp::spawnIndex': non-standard syntax; use '&' to create a pointer to member
+PhysicsSceneApp.cpp(439): error C2597: illegal reference to non-static member 'PhysicsSceneApp::AmountOfShapes'
+PhysicsSceneApp.cpp(439): error C3867: 'PhysicsSceneApp::AmountOfShapes': non-standard syntax; use '&' to create a pointer to member
+PhysicsSceneApp.cpp(439): error C2597: illegal reference to non-static member 'PhysicsSceneApp::spawnIndex'
+PhysicsSceneApp.cpp(446): error C2597: illegal reference to non-static member 'PhysicsSceneApp::spawnIndex'
+PhysicsSceneApp.cpp(447): error C2450: switch expression of type 'unknown' is illegal
+  PhysicsSceneApp.cpp(447): note: Integral expression required
+PhysicsSceneApp.cpp(449): error C2597: illegal reference to non-static member 'PhysicsSceneApp::sphereRadius'
+PhysicsSceneApp.cpp(452): error C2597: illegal reference to non-static member 'PhysicsSceneApp::SoftBodySizeX'
+PhysicsSceneApp.cpp(460): error C2597: illegal reference to non-static member 'PhysicsSceneApp::spawnIndex'
+PhysicsSceneApp.cpp(461): error C2450: switch expression of type 'unknown' is illegal
+  PhysicsSceneApp.cpp(461): note: Integral expression required
+PhysicsSceneApp.cpp(463): error C2597: illegal reference to non-static member 'PhysicsSceneApp::sphereMass'
+PhysicsSceneApp.cpp(466): error C2597: illegal reference to non-static member 'PhysicsSceneApp::SoftBodySizeY'
+PhysicsSceneApp.cpp(474): error C2597: illegal reference to non-static member 'PhysicsSceneApp::spawnIndex'
+PhysicsSceneApp.cpp(475): error C2450: switch expression of type 'unknown' is illegal
+  PhysicsSceneApp.cpp(475): note: Integral expression required
+PhysicsSceneApp.cpp(477): error C2228: left of '.x' must have class/struct/union
+PhysicsSceneApp.cpp(478): error C2228: left of '.y' must have class/struct/union
+PhysicsSceneApp.cpp(481): error C2597: illegal reference to non-static member 'PhysicsSceneApp::sphereRadius'
+PhysicsSceneApp.cpp(481): error C3867: 'PhysicsSceneApp::sphereRadius': non-standard syntax; use '&' to create a pointer to member
+PhysicsSceneApp.cpp(483): error C2597: illegal reference to non-static member 'PhysicsSceneApp::sphereRadius'
+PhysicsSceneApp.cpp(486): error C2597: illegal reference to non-static member 'PhysicsSceneApp::SoftBodySizeX'
+PhysicsSceneApp.cpp(486): error C3867: 'PhysicsSceneApp::SoftBodySizeX': non-standard syntax; use '&' to create a pointer to member
+PhysicsSceneApp.cpp(488): error C2597: illegal reference to non-static member 'PhysicsSceneApp::SoftBodySizeX'
+PhysicsSceneApp.cpp(497): error C2597: illegal reference to non-static member 'PhysicsSceneApp::spawnIndex'
+PhysicsSceneApp.cpp(498): error C2450: switch expression of type 'unknown' is illegal
+  PhysicsSceneApp.cpp(498): note: Integral expression required
+PhysicsSceneApp.cpp(500): error C2228: left of '.x' must have class/struct/union
+PhysicsSceneApp.cpp(501): error C2228: left of '.y' must have class/struct/union
+PhysicsSceneApp.cpp(504): error C2597: illegal reference to non-static member 'PhysicsSceneApp::sphereMass'
+PhysicsSceneApp.cpp(504): error C3867: 'PhysicsSceneApp::sphereMass': non-standard syntax; use '&' to create a pointer to member
+PhysicsSceneApp.cpp(506): error C2597: illegal reference to non-static member 'PhysicsSceneApp::sphereMass'
+PhysicsSceneApp.cpp(509): error C2597: illegal reference to non-static member 'PhysicsSceneApp::SoftBodySizeY'
+PhysicsSceneApp.cpp(509): error C3867: 'PhysicsSceneApp::SoftBodySizeY': non-standard syntax; use '&' to create a pointer to member
+PhysicsSceneApp.cpp(511): error C2597: illegal reference to non-static member 'PhysicsSceneApp::SoftBodySizeY'
+PhysicsSceneApp.cpp(519): error C2597: illegal reference to non-static member 'PhysicsSceneApp::spawnIndex'
+PhysicsSceneApp.cpp(520): error C2450: switch expression of type 'unknown' is illegal
+  PhysicsSceneApp.cpp(520): note: Integral expression required
+PhysicsSceneApp.cpp(522): error C2597: illegal reference to non-static member 'PhysicsSceneApp::sphereKinematic'
+PhysicsSceneApp.cpp(526): error C2597: illegal reference to non-static member 'PhysicsSceneApp::tempSpringCoefficent'
+PhysicsSceneApp.cpp(534): error C2597: illegal reference to non-static member 'PhysicsSceneApp::spawnIndex'
+PhysicsSceneApp.cpp(535): error C2450: switch expression of type 'unknown' is illegal
+  PhysicsSceneApp.cpp(535): note: Integral expression required
+PhysicsSceneApp.cpp(537): error C2597: illegal reference to non-static member 'PhysicsSceneApp::sphereKinematic'
+PhysicsSceneApp.cpp(540): error C2597: illegal reference to non-static member 'PhysicsSceneApp::tempSpringCoefficent'
+PhysicsSceneApp.cpp(540): error C3867: 'PhysicsSceneApp::tempSpringCoefficent': non-standard syntax; use '&' to create a pointer to member
+PhysicsSceneApp.cpp(542): error C2597: illegal reference to non-static member 'PhysicsSceneApp::tempSpringCoefficent'
+PhysicsSceneApp.cpp(550): error C2597: illegal reference to non-static member 'PhysicsSceneApp::spawnIndex'
+PhysicsSceneApp.cpp(551): error C2450: switch expression of type 'unknown' is illegal
+  PhysicsSceneApp.cpp(551): note: Integral expression required
+PhysicsSceneApp.cpp(553): error C2597: illegal reference to non-static member 'PhysicsSceneApp::softBodyMass'
+PhysicsSceneApp.cpp(553): error C3867: 'PhysicsSceneApp::softBodyMass': non-standard syntax; use '&' to create a pointer to member
+PhysicsSceneApp.cpp(555): error C2597: illegal reference to non-static member 'PhysicsSceneApp::softBodyMass'
+PhysicsSceneApp.cpp(563): error C2597: illegal reference to non-static member 'PhysicsSceneApp::spawnIndex'
+PhysicsSceneApp.cpp(564): error C2450: switch expression of type 'unknown' is illegal
+  PhysicsSceneApp.cpp(564): note: Integral expression required
+PhysicsSceneApp.cpp(566): error C2597: illegal reference to non-static member 'PhysicsSceneApp::softBodyMass'
+PhysicsSceneApp.cpp(566): error C3867: 'PhysicsSceneApp::softBodyMass': non-standard syntax; use '&' to create a pointer to member
+PhysicsSceneApp.cpp(568): error C2597: illegal reference to non-static member 'PhysicsSceneApp::softBodyMass'
+PhysicsSceneApp.cpp(577): error C2597: illegal reference to non-static member 'PhysicsSceneApp::spawnIndex'
+PhysicsSceneApp.cpp(578): error C2450: switch expression of type 'unknown' is illegal
+  PhysicsSceneApp.cpp(578): note: Integral expression required
+PhysicsSceneApp.cpp(580): error C2597: illegal reference to non-static member 'PhysicsSceneApp::springBreak'
+PhysicsSceneApp.cpp(587): error C2597: illegal reference to non-static member 'PhysicsSceneApp::spawnIndex'
+PhysicsSceneApp.cpp(588): error C2450: switch expression of type 'unknown' is illegal
+  PhysicsSceneApp.cpp(588): note: Integral expression required
+PhysicsSceneApp.cpp(590): error C2597: illegal reference to non-static member 'PhysicsSceneApp::springBreak'
+PhysicsSceneApp.cpp(590): error C3867: 'PhysicsSceneApp::springBreak': non-standard syntax; use '&' to create a pointer to member
+PhysicsSceneApp.cpp(592): error C2597: illegal reference to non-static member 'PhysicsSceneApp::springBreak'
+PhysicsSceneApp.cpp(604): error C2227: left of '->m_actors' must point to class/struct/union/generic type
+PhysicsSceneApp.cpp(604): error C2530: '<range>$L0': references must be initialized
+PhysicsSceneApp.cpp(604): fatal error C1003: error count exceeds 100; stopping compilation
+  main.cpp
+c:\users\s171842\documents\github\yr2\testing\physicsscene\PhysicsSceneApp.h(32): error C2039: 'Input': is not a member of 'aie'
+  C:\Users\s171842\Documents\GitHub\Yr2\Testing\bootstrap\Gizmos.h(5): note: see declaration of 'aie'
+c:\users\s171842\documents\github\yr2\testing\physicsscene\PhysicsSceneApp.h(32): error C2061: syntax error: identifier 'Input'
